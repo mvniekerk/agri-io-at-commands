@@ -1,7 +1,8 @@
 use atat_derive::AtatCmd;
+use serde_at::serde::{Deserialize};
 use crate::NoResponse;
 
-#[derive(Clone, Debug, AtatCmd)]
+#[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+LED_SET_COLOR", NoResponse)]
 pub struct SetColor {
     pub red: bool,
@@ -9,7 +10,7 @@ pub struct SetColor {
     pub blue: bool,
 }
 
-#[derive(Clone, Debug, AtatCmd)]
+#[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+LED_PULSE", NoResponse)]
 pub struct Pulse {
     pub red: bool,

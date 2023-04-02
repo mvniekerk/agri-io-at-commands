@@ -1,8 +1,9 @@
 use atat::{AtatUrc, nom};
 use atat::nom::{bytes, combinator, sequence};
 use atat_derive::AtatResp;
+use serde_at::serde::{Serialize};
 
-#[derive(Debug, Clone, PartialEq, Eq, AtatResp)]
+#[derive(Debug, Clone, PartialEq, Eq, AtatResp, Serialize)]
 pub struct MotorelliMeasurement {
     pub running_frequency: u16,
     pub set_frequency: u16,

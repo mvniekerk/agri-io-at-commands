@@ -22,7 +22,7 @@ pub enum MeasurementConfigType {
     Scale(f32),
 }
 
-#[derive(Clone, Debug, AtatEnum)]
+#[derive(Clone, Debug, AtatEnum, PartialEq)]
 pub enum MeasurementSensorType {
     #[at_arg(value = 0)]
     Current,

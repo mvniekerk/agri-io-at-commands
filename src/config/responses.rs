@@ -1,3 +1,4 @@
+use atat::heapless::String;
 use atat_derive::AtatResp;
 use crate::config::types::{MeasurementConfigType, SensorDeviceType};
 use crate::general::types::PinStateType;
@@ -19,4 +20,9 @@ pub struct GpioPinConfigGetResponse {
     pub start_high: bool,
     pub internal_pull_up: bool,
     pub pin_type: SensorDeviceType,
+}
+
+#[derive(Debug, Clone, AtatResp, PartialEq)]
+pub struct NameGetResponse {
+    pub name: String<32>
 }

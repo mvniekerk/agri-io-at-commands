@@ -1,3 +1,7 @@
+#![no_std]
+#![no_main]
+#![feature(type_alias_impl_trait)]
+
 use atat_derive::{AtatEnum, AtatResp};
 
 pub mod general;
