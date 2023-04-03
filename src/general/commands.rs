@@ -1,8 +1,8 @@
-use atat_derive::AtatCmd;
-use serde_at::serde::{Deserialize};
 use super::responses::*;
 use super::types::*;
 use crate::NoResponse;
+use atat_derive::AtatCmd;
+use serde::Deserialize;
 
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
 #[at_cmd("+RESET", NoResponse)]

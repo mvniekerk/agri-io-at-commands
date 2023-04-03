@@ -1,6 +1,6 @@
-use atat_derive::AtatCmd;
-use serde_at::serde::{Deserialize};
 use crate::NoResponse;
+use atat_derive::AtatCmd;
+use serde_at::serde::Deserialize;
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+LED_SET_COLOR", NoResponse)]

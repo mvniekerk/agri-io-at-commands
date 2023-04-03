@@ -1,11 +1,11 @@
-use atat::heapless::String;
-use atat_derive::AtatCmd;
-use serde_at::serde::{Deserialize};
+use super::responses::*;
+use super::types::*;
 use crate::config::types::SensorDeviceType;
 use crate::general::types::PinStateType;
-use super::types::*;
-use super::responses::*;
 use crate::NoResponse;
+use atat::heapless::String;
+use atat_derive::AtatCmd;
+use serde_at::serde::Deserialize;
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+MEASUREMENT_CONF_GET", MeasurementConfigGetResponse)]
@@ -75,7 +75,7 @@ pub struct GpioPinConfigSet {
 pub struct NameGet {}
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
-#[at_cmd("+NAME", NoResponse, timeout_ms = 4000)]
+#[at_cmd("+NAME", NameGetResponse, timeout_ms = 4000)]
 pub struct NameSet {
     pub name: String<32>,
 }

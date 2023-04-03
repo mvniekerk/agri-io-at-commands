@@ -1,13 +1,18 @@
-use atat_derive::AtatCmd;
-use serde_at::serde::{Deserialize};
 use super::responses::*;
+use atat_derive::AtatCmd;
+use serde_at::serde::Deserialize;
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+APP_KEY=?", AppKeyGetResponse)]
 pub struct AppKeyGet {}
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
-#[at_cmd("+APP_KEY", AppKeyGetResponse, quote_escape_strings = false, timeout_ms = 4000)]
+#[at_cmd(
+    "+APP_KEY",
+    AppKeyGetResponse,
+    quote_escape_strings = false,
+    timeout_ms = 4000
+)]
 pub struct AppKeySet {
     pub app_key: u128,
 }
@@ -17,7 +22,12 @@ pub struct AppKeySet {
 pub struct DevEuiGet {}
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
-#[at_cmd("+DEV_EUI", DevEuiGetResponse, quote_escape_strings = false, timeout_ms = 4000)]
+#[at_cmd(
+    "+DEV_EUI",
+    DevEuiGetResponse,
+    quote_escape_strings = false,
+    timeout_ms = 4000
+)]
 pub struct DevEuiSet {
     pub dev_eui: u64,
 }
@@ -27,7 +37,12 @@ pub struct DevEuiSet {
 pub struct AdrGet {}
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
-#[at_cmd("+ADR", AdrGetResponse, quote_escape_strings = false, timeout_ms = 4000)]
+#[at_cmd(
+    "+ADR",
+    AdrGetResponse,
+    quote_escape_strings = false,
+    timeout_ms = 4000
+)]
 pub struct AdrSet {
     pub adr: bool,
 }
@@ -37,7 +52,12 @@ pub struct AdrSet {
 pub struct DataRateGet {}
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
-#[at_cmd("+DATA_RATE", DataRateGetResponse, quote_escape_strings = false, timeout_ms = 4000)]
+#[at_cmd(
+    "+DATA_RATE",
+    DataRateGetResponse,
+    quote_escape_strings = false,
+    timeout_ms = 4000
+)]
 pub struct DataRateSet {
     pub data_rate: u8,
 }
@@ -47,7 +67,12 @@ pub struct DataRateSet {
 pub struct DurationBetweenSendsGet {}
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
-#[at_cmd("+DURATION_BETWEEN_SENDS", DurationBetweenSendsGetResponse, quote_escape_strings = false, timeout_ms = 4000)]
+#[at_cmd(
+    "+DURATION_BETWEEN_SENDS",
+    DurationBetweenSendsGetResponse,
+    quote_escape_strings = false,
+    timeout_ms = 4000
+)]
 pub struct DurationBetweenSendsSet {
     pub duration_between_sends: u8,
 }

@@ -1,3 +1,3 @@
-pub mod types;
-pub mod responses;
 pub mod commands;
+pub mod responses;
+pub mod types;

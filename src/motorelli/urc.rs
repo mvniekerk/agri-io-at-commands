@@ -1,7 +1,7 @@
-use atat::{AtatUrc, nom};
 use atat::nom::{bytes, combinator, sequence};
+use atat::{nom, AtatUrc};
 use atat_derive::AtatResp;
-use serde_at::serde::{Serialize};
+use serde_at::serde::Serialize;
 
 #[derive(Debug, Clone, PartialEq, Eq, AtatResp, Serialize)]
 pub struct MotorelliMeasurement {
@@ -26,13 +26,11 @@ pub struct MotorelliMeasurement {
 impl AtatUrc for MotorelliMeasurement {
     type Response = Self;
     fn parse(resp: &[u8]) -> Option<Self::Response> {
-        let mut get_next_val = sequence::tuple(
-            (
-                bytes::streaming::take_until::<_, _, nom::error::Error<_>>(","),
-                bytes::streaming::tag(","),
-                combinator::success(&b""[..]),
-            )
-        );
+        let mut get_next_val = sequence::tuple((
+            bytes::streaming::take_until::<_, _, nom::error::Error<_>>(","),
+            bytes::streaming::tag(","),
+            combinator::success(&b""[..]),
+        ));
         let (_, (running_frequency, _, resp)) = get_next_val(resp).ok()?;
         let (_, (set_frequency, _, resp)) = get_next_val(resp).ok()?;
         let (_, (bus_voltage, _, resp)) = get_next_val(resp).ok()?;
@@ -67,26 +65,23 @@ impl AtatUrc for MotorelliMeasurement {
         let analog_input_3 = core::str::from_utf8(analog_input_3).ok()?;
         let error = core::str::from_utf8(error).ok()?;
 
-        Some(
-            MotorelliMeasurement {
-                running_frequency: running_frequency.parse().ok()?,
-                set_frequency: set_frequency.parse().ok()?,
-                bus_voltage: bus_voltage.parse().ok()?,
-                output_voltage: output_voltage.parse().ok()?,
-                output_current: output_current.parse().ok()?,
-                rotating_speed: rotating_speed.parse().ok()?,
-                output_power: output_power.parse().ok()?,
-                output_torque: output_torque.parse().ok()?,
-                closed_loop_setting: closed_loop_setting.parse().ok()?,
-                closed_loop_feedback: closed_loop_feedback.parse().ok()?,
-                input_state: input_state.parse().ok()?,
-                output_state: output_state.parse().ok()?,
-                analog_input_1: analog_input_1.parse().ok()?,
-                analog_input_2: analog_input_2.parse().ok()?,
-                analog_input_3: analog_input_3.parse().ok()?,
-                error: error.parse().ok()?,
-            }
-        )
+        Some(MotorelliMeasurement {
+            running_frequency: running_frequency.parse().ok()?,
+            set_frequency: set_frequency.parse().ok()?,
+            bus_voltage: bus_voltage.parse().ok()?,
+            output_voltage: output_voltage.parse().ok()?,
+            output_current: output_current.parse().ok()?,
+            rotating_speed: rotating_speed.parse().ok()?,
+            output_power: output_power.parse().ok()?,
+            output_torque: output_torque.parse().ok()?,
+            closed_loop_setting: closed_loop_setting.parse().ok()?,
+            closed_loop_feedback: closed_loop_feedback.parse().ok()?,
+            input_state: input_state.parse().ok()?,
+            output_state: output_state.parse().ok()?,
+            analog_input_1: analog_input_1.parse().ok()?,
+            analog_input_2: analog_input_2.parse().ok()?,
+            analog_input_3: analog_input_3.parse().ok()?,
+            error: error.parse().ok()?,
+        })
     }
-
 }

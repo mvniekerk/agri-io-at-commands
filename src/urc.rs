@@ -1,6 +1,7 @@
-use atat::AtatUrc;
 use crate::lora::urc::LoraUrcMessages;
 use crate::motorelli::urc::MotorelliMeasurement;
+use atat::AtatUrc;
+use heapless::String;
 
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub enum UrcMessages {
@@ -9,7 +10,7 @@ pub enum UrcMessages {
     Motorelli(MotorelliMeasurement),
     Error,
     Resetting,
-    Starting,
+    Starting(String<32>),
     Started,
 }
 
@@ -24,7 +25,7 @@ impl AtatUrc for UrcMessages {
             if let Some(lora_urc) = LoraUrcMessages::parse(&resp[6..]) {
                 return Some(UrcMessages::Lora(lora_urc));
             }
-            return None
+            return None;
         }
         if resp.starts_with(b"+MOTORELLI,") {
             if let Some(motorelli_urc) = MotorelliMeasurement::parse(&resp[11..]) {
@@ -35,13 +36,15 @@ impl AtatUrc for UrcMessages {
         if resp == b"+ERROR" {
             return Some(UrcMessages::Error);
         }
-        if resp == b"RESETTING" {
+        if resp == b"+RESETTING" {
             return Some(UrcMessages::Resetting);
         }
-        if resp == b"STARTING" {
-            return Some(UrcMessages::Starting);
+        if resp.starts_with(b"+STARTING,") {
+            return Some(UrcMessages::Starting(
+                core::str::from_utf8(&resp[10..]).ok()?.into(),
+            ));
         }
-        if resp ==b"STARTED" {
+        if resp == b"+STARTED" {
             return Some(UrcMessages::Started);
         }
         None
