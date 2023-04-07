@@ -3,6 +3,7 @@
 
 use atat::AtatLen;
 use atat_derive::{AtatEnum, AtatLen, AtatResp};
+use defmt::error;
 use heapless::Vec;
 use serde::Serialize;
 use serde_at::SerializeOptions;
@@ -14,6 +15,8 @@ pub mod lora;
 pub mod modbus;
 pub mod motorelli;
 pub mod urc;
+
+pub trait NumberResponse {}
 
 #[derive(Debug, Clone, AtatResp, PartialEq, AtatLen, Serialize)]
 pub struct NoResponse {}
@@ -33,7 +36,21 @@ pub struct YesNoResponse {
     pub yes_no: YesNo,
 }
 
-pub trait NumberResponse {}
+#[derive(Debug, Clone, AtatResp, PartialEq, Serialize, AtatLen)]
+pub struct TrueFalseResponse {
+    pub true_false: bool,
+}
+
+impl NumberResponse for TrueFalseResponse {}
+
+#[derive(Debug, Clone, AtatResp, PartialEq, Serialize, AtatLen)]
+pub struct ErrorResponse {
+    pub error_group: u8,
+    pub error_code: u8,
+}
+
+impl NumberResponse for ErrorResponse {}
+
 
 impl<T> ToVecBytesResponse for T
 where
@@ -42,7 +59,10 @@ where
 {
     fn to_vec_bytes_response(&self, cmd: &str) -> Result<Vec<u8, 1600>, ()> {
         let b =
-            atat::serde_at::to_string::<_, { T::LEN }>(self, "", VALUES_SERIALIZE_OPTIONS).unwrap();
+            atat::serde_at::to_string::<_, { T::LEN }>(self, "", VALUES_SERIALIZE_OPTIONS).map_err(|_| {
+                error!("Error serializing response");
+                ()
+            })?;
         <Self as ToVecBytesResponse>::wrap_response(cmd, b.as_bytes())
     }
 }
@@ -53,8 +73,10 @@ impl ToVecBytesResponse for YesNoResponse {
             self,
             "",
             VALUES_SERIALIZE_OPTIONS,
-        )
-        .unwrap();
+        ).map_err(|_| {
+            error!("Error serializing response");
+            ()
+        })?;
         <Self as ToVecBytesResponse>::wrap_response(cmd, b.as_bytes())
     }
 }
@@ -70,6 +92,30 @@ pub trait ToVecBytesResponse {
         vec.extend_from_slice(b"OK\r\n")?;
         Ok(vec)
     }
+}
+
+impl ErrorResponse {
+    pub fn error(error_group: u8, error_code: u8) -> Result<Vec<u8, 1600>, ()> {
+        let err = Self {
+            error_group,
+            error_code,
+        };
+        err.to_vec_bytes_response("+ERR")
+    }
+
+    pub fn error_urc(error_group: u8, error_code: u8) -> Result<Vec<u8, 1600>, ()> {
+        let err = Self {
+            error_group,
+            error_code,
+        };
+
+        err.to_vec_bytes_response("+ERR_URC")
+    }
+}
+
+pub fn urc_on_string(cmd: &str) -> Result<Vec<u8, 1600>, ()> {
+    let err = NoResponse {};
+    err.to_vec_bytes_response(cmd)
 }
 
 pub const VALUES_SERIALIZE_OPTIONS: SerializeOptions = SerializeOptions {

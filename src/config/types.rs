@@ -23,6 +23,28 @@ pub enum MeasurementConfigType {
 }
 
 #[derive(Clone, Debug, AtatEnum, PartialEq)]
+pub enum MeasurementConfigTypeRequest {
+    #[at_arg(value = 0)]
+    WarnLow,
+    #[at_arg(value = 1)]
+    WarnHigh,
+    #[at_arg(value = 2)]
+    WaitFor,
+    #[at_arg(value = 3)]
+    DontStart,
+    #[at_arg(value = 4)]
+    HighGuard,
+    #[at_arg(value = 5)]
+    LowGuard,
+    #[at_arg(value = 6)]
+    OffHigh,
+    #[at_arg(value = 7)]
+    OffLow,
+    #[at_arg(value = 8)]
+    Scale,
+}
+
+#[derive(Clone, Debug, AtatEnum, PartialEq)]
 pub enum MeasurementSensorType {
     #[at_arg(value = 0)]
     Current,

@@ -1,6 +1,6 @@
 use super::responses::*;
 use super::types::*;
-use crate::{NoResponse, YesNo, YesNoResponse};
+use crate::{NoResponse, YesNo, TrueFalseResponse};
 use atat_derive::AtatCmd;
 use serde_at::serde::Deserialize;
 
@@ -9,8 +9,8 @@ use serde_at::serde::Deserialize;
 pub struct ModbusUartSetup {
     pub baud_rate: u32,
     pub data_bits: UartDataBits,
-    pub stop_bits: UartStopBits,
     pub parity: UartParity,
+    pub stop_bits: UartStopBits,
     pub device_id: u8,
 }
 
@@ -19,11 +19,11 @@ pub struct ModbusUartSetup {
 pub struct ModbusUartSetupGet {}
 
 #[derive(Debug, Clone, AtatCmd, Deserialize, PartialEq)]
-#[at_cmd("+MODBUS_ENABLED=?", YesNoResponse)]
+#[at_cmd("+MODBUS_ENABLED=?", TrueFalseResponse)]
 pub struct ModbusEnabledGet {}
 
 #[derive(Debug, Clone, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+MODBUS_ENABLED", NoResponse)]
 pub struct ModbusEnabledSet {
-    pub enabled: YesNo,
+    pub enabled: bool,
 }

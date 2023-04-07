@@ -1,5 +1,6 @@
 use super::responses::*;
 use atat_derive::AtatCmd;
+use serde_at::HexStr;
 use serde_at::serde::Deserialize;
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
@@ -14,7 +15,7 @@ pub struct AppKeyGet {}
     timeout_ms = 4000
 )]
 pub struct AppKeySet {
-    pub app_key: u128,
+    pub app_key: HexStr<u128>,
 }
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
@@ -29,7 +30,7 @@ pub struct DevEuiGet {}
     timeout_ms = 4000
 )]
 pub struct DevEuiSet {
-    pub dev_eui: u64,
+    pub dev_eui: HexStr<u64>,
 }
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]

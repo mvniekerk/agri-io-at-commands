@@ -12,7 +12,7 @@ use serde_at::serde::Deserialize;
 pub struct MeasurementConfigGet {
     pub index: u8,
     pub sensor_type: MeasurementSensorType,
-    pub config: MeasurementConfigType,
+    pub config: MeasurementConfigTypeRequest,
 }
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]

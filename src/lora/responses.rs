@@ -28,8 +28,18 @@ pub struct DurationBetweenSendsGetResponse {
     pub duration_between_sends: u8,
 }
 
+#[derive(Debug, Clone, AtatResp, PartialEq, Serialize, AtatLen)]
+pub struct LoraPacketReceived {
+    pub port: u8,
+    pub data: HexStr<[u8; 256]>,
+    pub length: u16,
+    pub rssi: i32,
+    pub snr: f32,
+}
+
 impl NumberResponse for AppKeyGetResponse {}
 impl NumberResponse for DevEuiGetResponse {}
 impl NumberResponse for AdrGetResponse {}
 impl NumberResponse for DataRateGetResponse {}
 impl NumberResponse for DurationBetweenSendsGetResponse {}
+impl NumberResponse for LoraPacketReceived {}
