@@ -79,3 +79,13 @@ pub struct NameGet {}
 pub struct NameSet {
     pub name: String<32>,
 }
+
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+CONFIG?", ConfigGetResponse, timeout_ms = 4000)]
+pub struct ConfigGet {}
+
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+CONFIG", ConfigGetResponse, timeout_ms = 4000)]
+pub struct ConfigSet {
+    config: String<8096>
+}
