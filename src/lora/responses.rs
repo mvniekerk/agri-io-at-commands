@@ -31,7 +31,7 @@ pub struct DurationBetweenSendsGetResponse {
 #[derive(Debug, Clone, AtatResp, PartialEq, Serialize, AtatLen)]
 pub struct LoraPacketReceived {
     pub port: u8,
-    pub data: HexStr<[u8; 256]>,
+    pub data: HexStr<[u8; 243]>,
     pub length: u16,
     pub rssi: i32,
     pub snr: f32,

@@ -3,6 +3,7 @@
 
 use atat::AtatLen;
 use atat_derive::{AtatEnum, AtatLen, AtatResp};
+#[cfg(feature = "debug")]
 use defmt::error;
 use heapless::Vec;
 use serde::Serialize;
@@ -60,6 +61,7 @@ where
     fn to_vec_bytes_response(&self, cmd: &str) -> Result<Vec<u8, 1600>, ()> {
         let b =
             atat::serde_at::to_string::<_, { T::LEN }>(self, "", VALUES_SERIALIZE_OPTIONS).map_err(|_| {
+                #[cfg(feature = "debug")]
                 error!("Error serializing response");
                 ()
             })?;
@@ -74,6 +76,7 @@ impl ToVecBytesResponse for YesNoResponse {
             "",
             VALUES_SERIALIZE_OPTIONS,
         ).map_err(|_| {
+            #[cfg(feature = "debug")]
             error!("Error serializing response");
             ()
         })?;

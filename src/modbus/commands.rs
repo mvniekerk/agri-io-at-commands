@@ -27,3 +27,13 @@ pub struct ModbusEnabledGet {}
 pub struct ModbusEnabledSet {
     pub enabled: bool,
 }
+
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+MODBUS_DEBUG_ENABLED", NoResponse, timeout_ms = 4000)]
+pub struct ModbusDebugEnabledSet {
+    pub enabled: bool
+}
+
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+MODBUS_DEBUG_ENABLED=?", TrueFalseResponse, timeout_ms = 4000)]
+pub struct ModbusDebugEnabledGet {}
