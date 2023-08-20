@@ -36,3 +36,8 @@ pub struct FirmwareVersionGet {}
 #[at_cmd("+FACTORY_RESET", NoResponse, timeout_ms = 4000)]
 pub struct FactoryReset {}
 
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+RESET_FAULT_STATUS", NoResponse, timeout_ms = 4000)]
+pub struct ResetFaultStatus {}
+
+

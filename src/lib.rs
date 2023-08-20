@@ -16,6 +16,7 @@ pub mod lora;
 pub mod modbus;
 pub mod motorelli;
 pub mod urc;
+pub mod speed;
 
 pub trait NumberResponse {}
 
