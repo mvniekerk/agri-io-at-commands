@@ -12,6 +12,7 @@ pub enum UrcMessages {
     Resetting,
     Starting(String<32>),
     Started,
+    Formatting
 }
 
 impl AtatUrc for UrcMessages {
@@ -46,6 +47,9 @@ impl AtatUrc for UrcMessages {
         }
         if resp == b"+STARTED" {
             return Some(UrcMessages::Started);
+        }
+        if resp == b"+FORMATTING" {
+            return Some(UrcMessages::Formatting);
         }
         None
     }

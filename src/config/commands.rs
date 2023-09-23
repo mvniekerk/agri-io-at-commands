@@ -89,3 +89,7 @@ pub struct ConfigGet {}
 pub struct ConfigSet {
     config: String<8096>
 }
+
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+ADC_DEBUG", NoResponse, timeout_ms = 4000)]
+pub struct AdcDebugEnable {}

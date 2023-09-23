@@ -53,10 +53,12 @@ pub enum MeasurementSensorType {
     #[at_arg(value = 2)]
     Kw,
     #[at_arg(value = 3)]
-    Pressure,
+    Level,
     #[at_arg(value = 4)]
-    Speed,
+    Pressure,
     #[at_arg(value = 5)]
+    Speed,
+    #[at_arg(value = 6)]
     Volts,
 }
 
@@ -66,4 +68,6 @@ pub enum SensorDeviceType {
     BoardPin,
     #[at_arg(value = 1)]
     MotorelliAd1000,
+    #[at_arg(value = 2)]
+    AbbAcs,
 }

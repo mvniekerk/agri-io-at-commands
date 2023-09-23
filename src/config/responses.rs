@@ -14,11 +14,6 @@ pub struct MeasurementConfigGetResponse {
 }
 
 #[derive(Debug, Clone, AtatResp, PartialEq)]
-pub struct MeasurementConfigCountGetResponse {
-    pub count: u8,
-}
-
-#[derive(Debug, Clone, AtatResp, PartialEq)]
 pub struct GpioPinConfigGetResponse {
     pub pin_index: u8,
     pub state: PinStateType,

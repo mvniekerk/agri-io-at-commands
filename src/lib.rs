@@ -17,6 +17,7 @@ pub mod modbus;
 pub mod motorelli;
 pub mod urc;
 pub mod speed;
+pub mod shared_responses;
 
 pub trait NumberResponse {}
 

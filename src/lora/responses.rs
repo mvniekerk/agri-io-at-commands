@@ -1,5 +1,6 @@
 use crate::NumberResponse;
 use atat_derive::{AtatLen, AtatResp};
+use heapless::Vec;
 use serde::Serialize;
 use serde_at::HexStr;
 
@@ -37,9 +38,15 @@ pub struct LoraPacketReceived {
     pub snr: f32,
 }
 
+#[derive(Debug, Clone, AtatResp, PartialEq, Serialize, AtatLen)]
+pub struct LoraPowerTable {
+    pub table: Vec<u8, 12>
+}
+
 impl NumberResponse for AppKeyGetResponse {}
 impl NumberResponse for DevEuiGetResponse {}
 impl NumberResponse for AdrGetResponse {}
 impl NumberResponse for DataRateGetResponse {}
 impl NumberResponse for DurationBetweenSendsGetResponse {}
 impl NumberResponse for LoraPacketReceived {}
+impl NumberResponse for LoraPowerTable {}
