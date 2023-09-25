@@ -92,13 +92,13 @@ pub struct LoraFactoryReset {}
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+LORA_FORCE_TX_POWER", NoResponse)]
 pub struct LoraForcePowerSet {
-    pub db_m: u32
+    pub db_m: u8
 }
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+LORA_FORCE_TX_POWER=?", NoResponse)]
 pub struct LoraForcePowerGet {
-    pub db_m: u32
+    pub db_m: u8
 }
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
