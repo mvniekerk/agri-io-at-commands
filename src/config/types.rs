@@ -1,6 +1,11 @@
-use atat_derive::AtatEnum;
+use crate::general::types::PinOnOff;
+use atat_derive::{AtatEnum, AtatLen};
+use heapless::Vec;
 use postcard::experimental::max_size::MaxSize;
 use serde::{Deserialize, Serialize};
+
+pub const MAX_STATE_MACHINES_FOR_PIN: usize = 2;
+pub const MAX_AMOUNT_OF_PIN_STATES_PER_TRANSITION: usize = 4;
 
 #[derive(Clone, Debug, AtatEnum, PartialEq, MaxSize)]
 #[repr(u8)]
@@ -91,9 +96,26 @@ pub enum GpioPinType {
     Mcp23S17,
 }
 
-#[derive(Serialize, Deserialize, Debug, Eq, PartialEq, Clone, MaxSize)]
+#[derive(Serialize, Deserialize, Debug, Eq, PartialEq, Clone, MaxSize, AtatLen)]
 pub struct GpioPinAtState {
     pub milliseconds: u8,
     pub value: bool,
     pub start_value: bool,
+}
+
+#[derive(Serialize, Deserialize, Debug, Eq, PartialEq, Clone, MaxSize, AtatLen)]
+pub struct PinStateContainer {
+    pub state_index: u8,
+    pub state: PinOnOff,
+    pub sequence: Vec<GpioPinAtState, MAX_AMOUNT_OF_PIN_STATES_PER_TRANSITION>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Eq, PartialEq, Clone, MaxSize, AtatLen)]
+pub struct GpioPinConfig {
+    pub pin_index: u8,
+    pub state: PinOnOff,
+    pub start_high: bool,
+    pub internal_pull_up: bool,
+    pub pin_type: GpioPinType,
+    pub at_state: Vec<PinStateContainer, MAX_STATE_MACHINES_FOR_PIN>,
 }

@@ -1,6 +1,5 @@
 use super::responses::*;
 use super::types::*;
-use crate::general::types::PinOnOff;
 use crate::NoResponse;
 use atat::heapless::String;
 use atat_derive::AtatCmd;
@@ -53,20 +52,48 @@ pub struct MeasurementConfigClear {
 pub struct MeasurementConfigClearAll {}
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
-#[at_cmd("+GPIO_CONF_GET", GpioPinConfigGetResponse)]
+#[at_cmd("+GPIO_GET", GpioPinConfigGetResponse)]
 pub struct GpioPinConfigGet {
-    pub pin_index: u8,
-    pub pin_type: GpioPinType,
+    pub pin_index: u16,
 }
 
 #[derive(Deserialize, Debug, Eq, PartialEq, Clone, MaxSize, AtatCmd)]
-#[at_cmd("+GPIO_CONF", GpioPinConfigGetResponse, timeout_ms = 4000)]
+#[at_cmd("+GPIO_DEL", GpioPinAddOrSetResponse, timeout_ms = 4000)]
+pub struct GpioPinConfigDelete {
+    pub index: u16,
+}
+
+#[derive(Deserialize, Debug, Eq, PartialEq, Clone, MaxSize, AtatCmd)]
+#[at_cmd("+GPIO_CLEAR_STATES", GpioPinAddOrSetResponse, timeout_ms = 4000)]
+pub struct GpioPinConfigClearStates {
+    pub index: u16,
+}
+
+#[derive(Deserialize, Debug, Eq, PartialEq, Clone, MaxSize, AtatCmd)]
+#[at_cmd("+GPIO_ADD", GpioPinAddOrSetResponse, timeout_ms = 4000)]
+pub struct GpioPinConfigAdd {
+    pub gpio_pin_config: GpioPinConfig,
+}
+
+#[derive(Deserialize, Debug, Eq, PartialEq, Clone, MaxSize, AtatCmd)]
+#[at_cmd("+GPIO_SET", GpioPinAddOrSetResponse, timeout_ms = 4000)]
 pub struct GpioPinConfigSet {
-    pub pin_index: u8,
-    pub state: PinOnOff,
-    pub start_high: bool,
-    pub internal_pull_up: bool,
-    pub pin_type: GpioPinType,
+    pub index: u16,
+    pub gpio_pin_config: GpioPinConfig,
+}
+
+#[derive(Deserialize, Debug, Eq, PartialEq, Clone, MaxSize, AtatCmd)]
+#[at_cmd("+GPIO_STATE_ADD", GpioPinAddOrSetStateResponse, timeout_ms = 4000)]
+pub struct GpioPinStateAdd {
+    pub pin_index: u16,
+    pub pin_state: PinStateContainer,
+}
+#[derive(Deserialize, Debug, Eq, PartialEq, Clone, MaxSize, AtatCmd)]
+#[at_cmd("+GPIO_PAS_ADD", GpioPinAddOrSetPinAtStateResponse, timeout_ms = 4000)]
+pub struct GpioPinAtStateAdd {
+    pub pin_index: u16,
+    pub state_index: u8,
+    pub pin_at_state: GpioPinAtState,
 }
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]

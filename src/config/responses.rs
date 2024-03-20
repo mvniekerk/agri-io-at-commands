@@ -1,13 +1,9 @@
 use crate::config::types::{MeasurementConfigType, SensorDeviceType};
 use crate::general::types::PinOnOff;
-use crate::ToVecBytesResponse;
-use crate::BUFFER_SIZE_IN_BYTES;
+use crate::NumberResponse;
 use atat::heapless::String;
-use atat::AtatLen;
 use atat_derive::{AtatLen, AtatResp};
-use heapless::Vec;
 use serde::Serialize;
-use serde_at::SerializeOptions;
 
 #[derive(Debug, Clone, AtatResp, PartialEq)]
 pub struct MeasurementConfigGetResponse {
@@ -24,22 +20,35 @@ pub struct GpioPinConfigGetResponse {
 }
 
 #[derive(Debug, Clone, AtatResp, PartialEq, Serialize, AtatLen)]
+pub struct GpioPinAddOrSetResponse {
+    pub index: u16,
+}
+
+impl NumberResponse for GpioPinAddOrSetResponse {}
+
+#[derive(Debug, Clone, AtatResp, PartialEq, Serialize, AtatLen)]
+pub struct GpioPinAddOrSetStateResponse {
+    pub pin_index: u16,
+    pub state_index: u8,
+}
+
+impl NumberResponse for GpioPinAddOrSetStateResponse {}
+
+#[derive(Debug, Clone, AtatResp, PartialEq, Serialize, AtatLen)]
+pub struct GpioPinAddOrSetPinAtStateResponse {
+    pub pin_index: u16,
+    pub state_index: u8,
+    pub at_state_index: u8,
+}
+
+impl NumberResponse for GpioPinAddOrSetPinAtStateResponse {}
+
+#[derive(Debug, Clone, AtatResp, PartialEq, Serialize, AtatLen)]
 pub struct NameGetResponse {
     pub name: String<32>,
 }
 
-impl ToVecBytesResponse for NameGetResponse {
-    fn to_vec_bytes_response(&self, cmd: &str) -> Result<Vec<u8, BUFFER_SIZE_IN_BYTES>, ()> {
-        let options = SerializeOptions {
-            cmd_prefix: "",
-            value_sep: false,
-            ..SerializeOptions::default()
-        };
-        let b = atat::serde_at::to_string::<_, { <Self as AtatLen>::LEN }>(self, "", options)
-            .unwrap_or_default();
-        <Self as ToVecBytesResponse>::wrap_response(cmd, b.as_bytes())
-    }
-}
+impl NumberResponse for NameGetResponse {}
 
 #[derive(Debug, Clone, AtatResp, PartialEq, Serialize, AtatLen)]
 pub struct ConfigGetResponse {
