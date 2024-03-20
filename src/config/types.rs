@@ -1,5 +1,6 @@
 use atat_derive::AtatEnum;
 use postcard::experimental::max_size::MaxSize;
+use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, AtatEnum, PartialEq, MaxSize)]
 #[repr(u8)]
@@ -88,4 +89,11 @@ pub enum GpioPinType {
     AbbAcs,
     #[at_arg(value = 3)]
     Mcp23S17,
+}
+
+#[derive(Serialize, Deserialize, Debug, Eq, PartialEq, Clone, MaxSize)]
+pub struct GpioPinAtState {
+    pub milliseconds: u8,
+    pub value: bool,
+    pub start_value: bool,
 }
