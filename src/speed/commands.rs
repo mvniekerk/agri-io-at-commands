@@ -1,8 +1,7 @@
 use super::responses::*;
-use crate::{NoResponse};
+use crate::NoResponse;
 use atat_derive::AtatCmd;
 use serde_at::serde::Deserialize;
-
 
 #[derive(Debug, Clone, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+ROTATING_SPEED_GET", RotatingSpeedGetResponse)]
@@ -15,7 +14,7 @@ pub struct RotatingSpeedGet {
 pub struct RotatingSpeedSet {
     pub sensor_index: u8,
     pub rpm: i32,
-    pub scale: i8
+    pub scale: i8,
 }
 
 #[derive(Debug, Clone, AtatCmd, Deserialize, PartialEq)]
@@ -41,7 +40,7 @@ pub struct HertzGet {
 pub struct HertzSet {
     pub sensor_index: u8,
     pub hertz: u32,
-            pub scale: i8
+    pub scale: i8,
 }
 
 #[derive(Debug, Clone, AtatCmd, Deserialize, PartialEq)]
@@ -67,7 +66,7 @@ pub struct ThrottleGet {
 pub struct ThrottleSet {
     pub sensor_index: u8,
     pub percentage: i32,
-    pub scale: i8
+    pub scale: i8,
 }
 
 #[derive(Debug, Clone, AtatCmd, Deserialize, PartialEq)]
@@ -75,4 +74,3 @@ pub struct ThrottleSet {
 pub struct ThrottleClear {
     pub sensor_index: u8,
 }
-

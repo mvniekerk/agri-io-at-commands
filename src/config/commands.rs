@@ -1,10 +1,10 @@
 use super::responses::*;
 use super::types::*;
-use crate::config::types::SensorDeviceType;
-use crate::general::types::PinStateType;
+use crate::general::types::PinOnOff;
 use crate::NoResponse;
 use atat::heapless::String;
 use atat_derive::AtatCmd;
+use postcard::experimental::max_size::MaxSize;
 use serde_at::serde::Deserialize;
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
@@ -56,18 +56,17 @@ pub struct MeasurementConfigClearAll {}
 #[at_cmd("+GPIO_CONF_GET", GpioPinConfigGetResponse)]
 pub struct GpioPinConfigGet {
     pub pin_index: u8,
-    pub sensor_type: MeasurementSensorType,
+    pub pin_type: GpioPinType,
 }
 
-#[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
+#[derive(Deserialize, Debug, Eq, PartialEq, Clone, MaxSize, AtatCmd)]
 #[at_cmd("+GPIO_CONF", GpioPinConfigGetResponse, timeout_ms = 4000)]
 pub struct GpioPinConfigSet {
     pub pin_index: u8,
-    pub sensor_type: MeasurementSensorType,
-    pub state: PinStateType,
+    pub state: PinOnOff,
     pub start_high: bool,
     pub internal_pull_up: bool,
-    pub pin_type: SensorDeviceType,
+    pub pin_type: GpioPinType,
 }
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
@@ -87,7 +86,7 @@ pub struct ConfigGet {}
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
 #[at_cmd("+CONFIG", ConfigGetResponse, timeout_ms = 4000)]
 pub struct ConfigSet {
-    config: String<8096>
+    config: String<8096>,
 }
 
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]

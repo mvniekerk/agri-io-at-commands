@@ -15,12 +15,15 @@ pub mod led;
 pub mod lora;
 pub mod modbus;
 pub mod motorelli;
-pub mod urc;
-pub mod speed;
-pub mod shared_responses;
 pub mod sequence;
+pub mod shared_responses;
+pub mod speed;
+pub mod urc;
+pub use shared_responses::{U16Response, U8Response};
 
 pub trait NumberResponse {}
+
+pub const BUFFER_SIZE_IN_BYTES: usize = 400;
 
 #[derive(Debug, Clone, AtatResp, PartialEq, AtatLen, Serialize)]
 pub struct NoResponse {}
@@ -55,15 +58,14 @@ pub struct ErrorResponse {
 
 impl NumberResponse for ErrorResponse {}
 
-
 impl<T> ToVecBytesResponse for T
 where
     T: AtatLen + Serialize + NumberResponse,
     [(); T::LEN]:,
 {
-    fn to_vec_bytes_response(&self, cmd: &str) -> Result<Vec<u8, 1600>, ()> {
-        let b =
-            atat::serde_at::to_string::<_, { T::LEN }>(self, "", VALUES_SERIALIZE_OPTIONS).map_err(|_| {
+    fn to_vec_bytes_response(&self, cmd: &str) -> Result<Vec<u8, BUFFER_SIZE_IN_BYTES>, ()> {
+        let b = atat::serde_at::to_string::<_, { T::LEN }>(self, "", VALUES_SERIALIZE_OPTIONS)
+            .map_err(|_| {
                 #[cfg(feature = "debug")]
                 error!("Error serializing response");
                 ()
@@ -73,12 +75,13 @@ where
 }
 
 impl ToVecBytesResponse for YesNoResponse {
-    fn to_vec_bytes_response(&self, cmd: &str) -> Result<Vec<u8, 1600>, ()> {
+    fn to_vec_bytes_response(&self, cmd: &str) -> Result<Vec<u8, BUFFER_SIZE_IN_BYTES>, ()> {
         let b = atat::serde_at::to_string::<_, { <Self as AtatLen>::LEN }>(
             self,
             "",
             VALUES_SERIALIZE_OPTIONS,
-        ).map_err(|_| {
+        )
+        .map_err(|_| {
             #[cfg(feature = "debug")]
             error!("Error serializing response");
             ()
@@ -88,9 +91,9 @@ impl ToVecBytesResponse for YesNoResponse {
 }
 
 pub trait ToVecBytesResponse {
-    fn to_vec_bytes_response(&self, cmd: &str) -> Result<Vec<u8, 1600>, ()>;
+    fn to_vec_bytes_response(&self, cmd: &str) -> Result<Vec<u8, BUFFER_SIZE_IN_BYTES>, ()>;
 
-    fn wrap_response(cmd: &str, vals: &[u8]) -> Result<Vec<u8, 1600>, ()> {
+    fn wrap_response(cmd: &str, vals: &[u8]) -> Result<Vec<u8, BUFFER_SIZE_IN_BYTES>, ()> {
         let mut vec = Vec::new();
         vec.extend_from_slice(cmd.as_bytes())?;
         vec.extend_from_slice(": ".as_bytes())?;
@@ -101,7 +104,7 @@ pub trait ToVecBytesResponse {
 }
 
 impl ErrorResponse {
-    pub fn error(error_group: u8, error_code: u8) -> Result<Vec<u8, 1600>, ()> {
+    pub fn error(error_group: u8, error_code: u8) -> Result<Vec<u8, BUFFER_SIZE_IN_BYTES>, ()> {
         let err = Self {
             error_group,
             error_code,
@@ -109,7 +112,7 @@ impl ErrorResponse {
         err.to_vec_bytes_response("+ERR")
     }
 
-    pub fn error_urc(error_group: u8, error_code: u8) -> Result<Vec<u8, 1600>, ()> {
+    pub fn error_urc(error_group: u8, error_code: u8) -> Result<Vec<u8, BUFFER_SIZE_IN_BYTES>, ()> {
         let err = Self {
             error_group,
             error_code,
@@ -119,7 +122,7 @@ impl ErrorResponse {
     }
 }
 
-pub fn urc_on_string(cmd: &str) -> Result<Vec<u8, 1600>, ()> {
+pub fn urc_on_string(cmd: &str) -> Result<Vec<u8, BUFFER_SIZE_IN_BYTES>, ()> {
     let err = NoResponse {};
     err.to_vec_bytes_response(cmd)
 }

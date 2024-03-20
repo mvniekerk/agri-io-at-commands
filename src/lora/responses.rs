@@ -40,7 +40,7 @@ pub struct LoraPacketReceived {
 
 #[derive(Debug, Clone, AtatResp, PartialEq, Serialize, AtatLen)]
 pub struct LoraPowerTable {
-    pub table: Vec<u8, 12>
+    pub table: Vec<u8, 12>,
 }
 
 impl NumberResponse for AppKeyGetResponse {}

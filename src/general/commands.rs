@@ -20,7 +20,7 @@ pub struct PinStateSet {
     #[at_arg(position = 0)]
     pub pin: u8,
     #[at_arg(position = 1)]
-    pub state: PinStateType,
+    pub state: PinOnOff,
 }
 
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
@@ -31,7 +31,6 @@ pub struct SendState {}
 #[at_cmd("+FIRMWARE_VERSION=?", FirmwareVersionGetResponse, timeout_ms = 4000)]
 pub struct FirmwareVersionGet {}
 
-
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
 #[at_cmd("+FACTORY_RESET", NoResponse, timeout_ms = 4000)]
 pub struct FactoryReset {}
@@ -39,5 +38,3 @@ pub struct FactoryReset {}
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
 #[at_cmd("+RESET_FAULT_STATUS", NoResponse, timeout_ms = 4000)]
 pub struct ResetFaultStatus {}
-
-

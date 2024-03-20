@@ -1,6 +1,8 @@
 use atat_derive::AtatEnum;
+use postcard::experimental::max_size::MaxSize;
 
-#[derive(Clone, Debug, AtatEnum, PartialEq)]
+#[derive(Clone, Debug, AtatEnum, PartialEq, MaxSize)]
+#[repr(u8)]
 pub enum MeasurementConfigType {
     #[at_arg(value = 0)]
     WarnLow(f32),
@@ -22,7 +24,8 @@ pub enum MeasurementConfigType {
     Scale(f32),
 }
 
-#[derive(Clone, Debug, AtatEnum, PartialEq)]
+#[derive(Clone, Debug, AtatEnum, PartialEq, MaxSize)]
+#[repr(u8)]
 pub enum MeasurementConfigTypeRequest {
     #[at_arg(value = 0)]
     WarnLow,
@@ -44,7 +47,8 @@ pub enum MeasurementConfigTypeRequest {
     Scale,
 }
 
-#[derive(Clone, Debug, AtatEnum, PartialEq)]
+#[derive(Clone, Debug, AtatEnum, PartialEq, MaxSize)]
+#[repr(u8)]
 pub enum MeasurementSensorType {
     #[at_arg(value = 0)]
     Current,
@@ -62,7 +66,8 @@ pub enum MeasurementSensorType {
     Volts,
 }
 
-#[derive(Clone, Debug, AtatEnum, PartialEq)]
+#[derive(Clone, Debug, AtatEnum, PartialEq, MaxSize)]
+#[repr(u8)]
 pub enum SensorDeviceType {
     #[at_arg(value = 0)]
     BoardPin,
@@ -70,4 +75,17 @@ pub enum SensorDeviceType {
     MotorelliAd1000,
     #[at_arg(value = 2)]
     AbbAcs,
+}
+
+#[derive(Debug, Eq, PartialEq, Clone, MaxSize, AtatEnum)]
+#[repr(u8)]
+pub enum GpioPinType {
+    #[at_arg(value = 0)]
+    BoardPin,
+    #[at_arg(value = 1)]
+    MotorelliAd1000,
+    #[at_arg(value = 2)]
+    AbbAcs,
+    #[at_arg(value = 3)]
+    Mcp23S17,
 }

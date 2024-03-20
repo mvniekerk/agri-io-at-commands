@@ -12,7 +12,7 @@ pub enum UrcMessages {
     Resetting,
     Starting(String<32>),
     Started,
-    Formatting
+    Formatting,
 }
 
 impl AtatUrc for UrcMessages {
@@ -42,7 +42,7 @@ impl AtatUrc for UrcMessages {
         }
         if resp.starts_with(b"+STARTING,") {
             return Some(UrcMessages::Starting(
-                core::str::from_utf8(&resp[10..]).ok()?.into(),
+                core::str::from_utf8(&resp[10..]).ok()?.try_into().ok()?,
             ));
         }
         if resp == b"+STARTED" {

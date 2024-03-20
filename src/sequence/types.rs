@@ -10,4 +10,8 @@ pub enum ActionType {
     Throttle,
     #[at_arg(value = 3)]
     Wait,
+    #[at_arg(value = 4)]
+    LedPulse,
+    #[at_arg(value = 5)]
+    LedColour,
 }

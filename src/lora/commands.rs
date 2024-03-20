@@ -1,8 +1,8 @@
 use super::responses::*;
-use atat_derive::AtatCmd;
-use serde_at::HexStr;
-use serde_at::serde::Deserialize;
 use crate::NoResponse;
+use atat_derive::AtatCmd;
+use serde_at::serde::Deserialize;
+use serde_at::HexStr;
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+APP_KEY=?", AppKeyGetResponse)]
@@ -82,7 +82,7 @@ pub struct DurationBetweenSendsSet {
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+LORA_DEBUG", NoResponse)]
 pub struct LoraDebugSet {
-    pub on: bool
+    pub on: bool,
 }
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
@@ -92,17 +92,15 @@ pub struct LoraFactoryReset {}
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+LORA_FORCE_TX_POWER", NoResponse)]
 pub struct LoraForcePowerSet {
-    pub db_m: u8
+    pub db_m: u8,
 }
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+LORA_FORCE_TX_POWER=?", NoResponse)]
 pub struct LoraForcePowerGet {
-    pub db_m: u8
+    pub db_m: u8,
 }
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+LORA_POWER_TABLE", LoraPowerTable)]
 pub struct LoraPowerTableGet {}
-
-

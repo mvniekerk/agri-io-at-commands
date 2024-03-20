@@ -1,6 +1,6 @@
+use crate::NumberResponse;
 use atat_derive::{AtatLen, AtatResp};
 use serde::Serialize;
-use crate::{NumberResponse};
 
 #[derive(Debug, Clone, AtatResp, PartialEq, AtatLen, Serialize)]
 pub struct RotatingSpeedGetResponse {

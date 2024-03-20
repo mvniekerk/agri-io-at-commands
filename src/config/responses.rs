@@ -1,6 +1,7 @@
 use crate::config::types::{MeasurementConfigType, SensorDeviceType};
-use crate::general::types::PinStateType;
+use crate::general::types::PinOnOff;
 use crate::ToVecBytesResponse;
+use crate::BUFFER_SIZE_IN_BYTES;
 use atat::heapless::String;
 use atat::AtatLen;
 use atat_derive::{AtatLen, AtatResp};
@@ -16,7 +17,7 @@ pub struct MeasurementConfigGetResponse {
 #[derive(Debug, Clone, AtatResp, PartialEq)]
 pub struct GpioPinConfigGetResponse {
     pub pin_index: u8,
-    pub state: PinStateType,
+    pub state: PinOnOff,
     pub start_high: bool,
     pub internal_pull_up: bool,
     pub pin_type: SensorDeviceType,
@@ -28,21 +29,21 @@ pub struct NameGetResponse {
 }
 
 impl ToVecBytesResponse for NameGetResponse {
-    fn to_vec_bytes_response(&self, cmd: &str) -> Result<Vec<u8, 1600>, ()> {
+    fn to_vec_bytes_response(&self, cmd: &str) -> Result<Vec<u8, BUFFER_SIZE_IN_BYTES>, ()> {
         let options = SerializeOptions {
             cmd_prefix: "",
             value_sep: false,
             ..SerializeOptions::default()
         };
-        let b =
-            atat::serde_at::to_string::<_, { <Self as AtatLen>::LEN }>(self, "", options).unwrap();
+        let b = atat::serde_at::to_string::<_, { <Self as AtatLen>::LEN }>(self, "", options)
+            .unwrap_or_default();
         <Self as ToVecBytesResponse>::wrap_response(cmd, b.as_bytes())
     }
 }
 
 #[derive(Debug, Clone, AtatResp, PartialEq, Serialize, AtatLen)]
 pub struct ConfigGetResponse {
-    pub config: String<8192>
+    pub config: String<8192>,
 }
 
 #[cfg(test)]
@@ -66,7 +67,7 @@ mod tests {
     #[test]
     fn test_json_string() {
         let config = r##"{"version":1,"app_key_1":15445943918857047555,"app_key_2":9976673127415750557,"dev_eui":7512461167133412109,"adr":false,"data_rate":5,"duration_between_sends":15,"pin_states":[{"pin_index":14,"state":"Off","start_high":false,"internal_pull_up":false,"at_state":[{"state_index":0,"state":"ToOff","sequence":[{"milliseconds":0,"value":false,"start_value":false}]},{"state_index":0,"state":"ToOn","sequence":[{"milliseconds":0,"value":true,"start_value":true}]}],"pin_type":"BoardPin"}],"modbus_uart_config":{"baud_rate":19200,"data_bits":8,"parity":0,"stop_bits":1,"device_id":1},"access_point_name":"GMETSILLAH","access_point_password":"K0si3Kw@Kker","wifi_enabled":false,"readings":{"current":{"sensors":[{"warn_low":0.0,"warn_high":0.0,"wait_for":false,"dont_start":0.0,"high_guard":false,"low_guard":false,"off_high":0.0,"off_low":0.0,"scale":1.0,"sensor_type":"MotorelliAd1000","sensor_id":0}]},"flow_rate":{"sensors":[]},"kw":{"sensors":[]},"pressure":{"sensors":[]},"speed":{"sensors":[]},"volts":{"sensors":[]}},"model":257,"send_state_every_seconds":30,"name":"TEST2"}"##;
-        let config = String::from_str(config ).unwrap();
+        let config = String::from_str(config).unwrap();
         let response = ConfigGetResponse { config };
         let bytes = response.to_vec_bytes_response("_CONFIG_JSON").unwrap();
         let expected = "+CONFIG_JSON: {\"version\":1,\"app_key_1\":15445943918857047555,\"app_key_2\":9976673127415750557,\"dev_eui\":7512461167133412109,\"adr\":false,\"data_rate\":5,\"duration_between_sends\":15,\"pin_states\":[{\"pin_index\":14,\"state\":\"Off\",\"start_high\":false,\"internal_pull_up\":false,\"at_state\":[{\"state_index\":0,\"state\":\"ToOff\",\"sequence\":[{\"milliseconds\":0,\"value\":false,\"start_value\":false}]},{\"state_index\":0,\"state\":\"ToOn\",\"sequence\":[{\"milliseconds\":0,\"value\":true,\"start_value\":true}]}],\"pin_type\":\"BoardPin\"}],\"modbus_uart_config\":{\"baud_rate\":19200,\"data_bits\":8,\"parity\":0,\"stop_bits\":1,\"device_id\":1},\"access_point_name\":\"GMETSILLAH\",\"access_point_password\":\"K0si3Kw@Kker\",\"wifi_enabled\":false,\"readings\":{\"current\":{\"sensors\":[{\"warn_low\":0.0,\"warn_high\":0.0,\"wait_for\":false,\"dont_start\":0.0,\"high_guard\":false,\"low_guard\":false,\"off_high\":0.0,\"off_low\":0.0,\"scale\":1.0,\"sensor_type\":\"MotorelliAd1000\",\"sensor_id\":0}]},\"flow_rate\":{\"sensors\":[]},\"kw\":{\"sensors\":[]},\"pressure\":{\"sensors\":[]},\"speed\":{\"sensors\":[]},\"volts\":{\"sensors\":[]}},\"model\":257,\"send_state_every_seconds\":30,\"name\":\"TEST2\"}\r\n";
