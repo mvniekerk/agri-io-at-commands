@@ -1,7 +1,6 @@
 use atat_derive::AtatEnum;
-use postcard::experimental::max_size::MaxSize;
 
-#[derive(Debug, Eq, PartialEq, Clone, MaxSize, AtatEnum)]
+#[derive(Debug, Eq, PartialEq, Clone, AtatEnum, Hash)]
 #[repr(u8)]
 pub enum PinOnOff {
     #[at_arg(value = 0)]

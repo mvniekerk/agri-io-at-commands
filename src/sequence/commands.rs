@@ -23,7 +23,7 @@ pub struct SequenceStop {
 pub struct SequenceAdd {}
 
 #[derive(Debug, Clone, AtatCmd, Deserialize, PartialEq)]
-#[at_cmd("+SEQ_ADD", NoResponse)]
+#[at_cmd("+SEQ_DEL", NoResponse)]
 pub struct SequenceDelete {
     pub sequence: u8,
 }
@@ -40,3 +40,7 @@ pub struct SequenceAddAction {
     pub action_data_4: Option<u32>,
     pub action_data_5: Option<u32>,
 }
+
+#[derive(Debug, Clone, AtatCmd, Deserialize, PartialEq)]
+#[at_cmd("+SEQ_CLEAR", NoResponse)]
+pub struct SequenceClearAll {}

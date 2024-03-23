@@ -1,10 +1,10 @@
 use super::responses::*;
 use super::types::*;
-use crate::NoResponse;
+use crate::{NoResponse, NumberResponse};
 use atat::heapless::String;
-use atat_derive::AtatCmd;
-use postcard::experimental::max_size::MaxSize;
+use atat_derive::{AtatCmd};
 use serde_at::serde::Deserialize;
+use crate::general::types::PinOnOff;
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+MEASUREMENT_CONF_GET", MeasurementConfigGetResponse)]
@@ -57,44 +57,56 @@ pub struct GpioPinConfigGet {
     pub pin_index: u16,
 }
 
-#[derive(Deserialize, Debug, Eq, PartialEq, Clone, MaxSize, AtatCmd)]
+#[derive(Deserialize, Debug, Eq, PartialEq, Clone, AtatCmd)]
 #[at_cmd("+GPIO_DEL", GpioPinAddOrSetResponse, timeout_ms = 4000)]
 pub struct GpioPinConfigDelete {
     pub index: u16,
 }
 
-#[derive(Deserialize, Debug, Eq, PartialEq, Clone, MaxSize, AtatCmd)]
+#[derive(Deserialize, Debug, Eq, PartialEq, Clone, AtatCmd)]
 #[at_cmd("+GPIO_CLEAR_STATES", GpioPinAddOrSetResponse, timeout_ms = 4000)]
 pub struct GpioPinConfigClearStates {
     pub index: u16,
 }
 
-#[derive(Deserialize, Debug, Eq, PartialEq, Clone, MaxSize, AtatCmd)]
+#[derive(Deserialize, Debug, Eq, PartialEq, Clone, AtatCmd)]
+#[at_cmd("+GPIO_COUNT", GpioPinAddOrSetResponse, timeout_ms = 4000)]
+pub struct GpioCount {}
+
+#[derive(Deserialize, Debug, Eq, PartialEq, Clone, AtatCmd)]
 #[at_cmd("+GPIO_ADD", GpioPinAddOrSetResponse, timeout_ms = 4000)]
 pub struct GpioPinConfigAdd {
     pub gpio_pin_config: GpioPinConfig,
 }
 
-#[derive(Deserialize, Debug, Eq, PartialEq, Clone, MaxSize, AtatCmd)]
+#[derive(Deserialize, Debug, Eq, PartialEq, Clone, AtatCmd)]
 #[at_cmd("+GPIO_SET", GpioPinAddOrSetResponse, timeout_ms = 4000)]
 pub struct GpioPinConfigSet {
     pub index: u16,
     pub gpio_pin_config: GpioPinConfig,
 }
 
-#[derive(Deserialize, Debug, Eq, PartialEq, Clone, MaxSize, AtatCmd)]
+#[derive(Deserialize, Debug, Eq, PartialEq, Clone, AtatCmd)]
 #[at_cmd("+GPIO_STATE_ADD", GpioPinAddOrSetStateResponse, timeout_ms = 4000)]
 pub struct GpioPinStateAdd {
     pub pin_index: u16,
-    pub pin_state: PinStateContainer,
+    pub state_index: u8,
+    pub state: PinOnOff,
 }
-#[derive(Deserialize, Debug, Eq, PartialEq, Clone, MaxSize, AtatCmd)]
+impl NumberResponse for GpioPinStateAdd {}
+
+#[derive(Deserialize, Debug, Eq, PartialEq, Clone, AtatCmd)]
 #[at_cmd("+GPIO_PAS_ADD", GpioPinAddOrSetPinAtStateResponse, timeout_ms = 4000)]
 pub struct GpioPinAtStateAdd {
     pub pin_index: u16,
     pub state_index: u8,
     pub pin_at_state: GpioPinAtState,
 }
+
+
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+GPIO_CLEAR", NoResponse, timeout_ms = 4000)]
+pub struct GpioClearConfig {}
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+NAME_GET=?", NameGetResponse, timeout_ms = 4000)]
@@ -119,3 +131,4 @@ pub struct ConfigSet {
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
 #[at_cmd("+ADC_DEBUG", NoResponse, timeout_ms = 4000)]
 pub struct AdcDebugEnable {}
+

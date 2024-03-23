@@ -83,8 +83,7 @@ pub enum SensorDeviceType {
     AbbAcs,
 }
 
-#[derive(Debug, Eq, PartialEq, Clone, MaxSize, AtatEnum)]
-#[repr(u8)]
+#[derive(Debug, Eq, PartialEq, Clone, AtatEnum, Hash)]
 pub enum GpioPinType {
     #[at_arg(value = 0)]
     BoardPin,
@@ -96,21 +95,21 @@ pub enum GpioPinType {
     Mcp23S17,
 }
 
-#[derive(Serialize, Deserialize, Debug, Eq, PartialEq, Clone, MaxSize, AtatLen)]
+#[derive(Serialize, Deserialize, Debug, Eq, PartialEq, Clone, MaxSize, AtatLen, Hash)]
 pub struct GpioPinAtState {
     pub milliseconds: u8,
     pub value: bool,
     pub start_value: bool,
 }
 
-#[derive(Serialize, Deserialize, Debug, Eq, PartialEq, Clone, MaxSize, AtatLen)]
+#[derive(Serialize, Deserialize, Debug, Eq, PartialEq, Clone, AtatLen, Hash)]
 pub struct PinStateContainer {
     pub state_index: u8,
     pub state: PinOnOff,
     pub sequence: Vec<GpioPinAtState, MAX_AMOUNT_OF_PIN_STATES_PER_TRANSITION>,
 }
 
-#[derive(Serialize, Deserialize, Debug, Eq, PartialEq, Clone, MaxSize, AtatLen)]
+#[derive(Serialize, Deserialize, Debug, Eq, PartialEq, Clone, AtatLen, Hash)]
 pub struct GpioPinConfig {
     pub pin_index: u8,
     pub state: PinOnOff,
