@@ -5,7 +5,7 @@ use atat::AtatLen;
 use atat_derive::{AtatEnum, AtatLen, AtatResp};
 #[cfg(feature = "debug")]
 use defmt::error;
-use heapless::Vec;
+use heapless::{String, Vec};
 use serde::Serialize;
 use serde_at::SerializeOptions;
 
@@ -45,7 +45,19 @@ pub struct YesNoResponse {
 
 #[derive(Debug, Clone, AtatResp, PartialEq, Serialize, AtatLen)]
 pub struct TrueFalseResponse {
-    pub true_false: bool,
+    pub true_false: String<5>,
+}
+
+impl From<bool> for TrueFalseResponse {
+    fn from(b: bool) -> Self {
+        let mut s = String::new();
+        if b {
+            s.push_str("true").unwrap();
+        } else {
+            s.push_str("false").unwrap();
+        }
+        Self { true_false: s }
+    }
 }
 
 impl NumberResponse for TrueFalseResponse {}

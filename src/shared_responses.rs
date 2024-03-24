@@ -13,3 +13,9 @@ pub struct U16Response {
     pub value: u16,
 }
 impl NumberResponse for U16Response {}
+
+#[derive(Debug, Clone, AtatResp, PartialEq, Serialize, AtatLen)]
+pub struct BoolResponse {
+    pub value: bool,
+}
+impl NumberResponse for BoolResponse {}

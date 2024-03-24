@@ -38,6 +38,7 @@ impl NumberResponse for GpioPinAddOrSetStateResponse {}
 pub struct GpioPinAddOrSetPinAtStateResponse {
     pub pin_index: u16,
     pub state_index: u8,
+    pub state: PinOnOff,
     pub at_state_index: u8,
 }
 

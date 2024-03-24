@@ -6,6 +6,7 @@ use serde::{Deserialize, Serialize};
 
 pub const MAX_STATE_MACHINES_FOR_PIN: usize = 2;
 pub const MAX_AMOUNT_OF_PIN_STATES_PER_TRANSITION: usize = 4;
+pub const MAX_AMOUNT_OF_PINS_PER_STATE_MACHINE: usize = 4;
 
 #[derive(Clone, Debug, AtatEnum, PartialEq, MaxSize)]
 #[repr(u8)]

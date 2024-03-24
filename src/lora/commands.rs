@@ -1,5 +1,6 @@
 use super::responses::*;
-use crate::NoResponse;
+use crate::{NoResponse, U16Response, TrueFalseResponse};
+use crate::shared_responses::BoolResponse;
 use atat_derive::AtatCmd;
 use serde_at::serde::Deserialize;
 use serde_at::HexStr;
@@ -104,3 +105,24 @@ pub struct LoraForcePowerGet {
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+LORA_POWER_TABLE", LoraPowerTable)]
 pub struct LoraPowerTableGet {}
+
+#[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
+#[at_cmd("+LORA_DISABLE=?", TrueFalseResponse)]
+pub struct LoraDisableGet {}
+
+#[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
+#[at_cmd("+LORA_DISABLE", TrueFalseResponse)]
+pub struct LoraDisableSet {
+    pub disable: bool,
+}
+#[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
+#[at_cmd("+LORA_REBOOT_AFTER_TRIES=?", U16Response)]
+pub struct LoraRebootAfterTriesGet {}
+
+#[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
+#[at_cmd("+LORA_REBOOT_AFTER_TRIES", U16Response)]
+pub struct LoraRebootAfterTriesSet {
+    pub tries: u16,
+}
+
+

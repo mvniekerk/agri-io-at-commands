@@ -1,6 +1,6 @@
 use super::responses::*;
 use super::types::*;
-use crate::{NoResponse, NumberResponse};
+use crate::{NoResponse, NumberResponse, U16Response};
 use atat::heapless::String;
 use atat_derive::{AtatCmd};
 use serde_at::serde::Deserialize;
@@ -100,13 +100,18 @@ impl NumberResponse for GpioPinStateAdd {}
 pub struct GpioPinAtStateAdd {
     pub pin_index: u16,
     pub state_index: u8,
+    pub state: PinOnOff,
     pub pin_at_state: GpioPinAtState,
 }
-
 
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
 #[at_cmd("+GPIO_CLEAR", NoResponse, timeout_ms = 4000)]
 pub struct GpioClearConfig {}
+
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+PIN_STATES_COUNT", U16Response, timeout_ms = 4000)]
+pub struct PinStatesCount {}
+
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+NAME_GET=?", NameGetResponse, timeout_ms = 4000)]
@@ -131,4 +136,9 @@ pub struct ConfigSet {
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
 #[at_cmd("+ADC_DEBUG", NoResponse, timeout_ms = 4000)]
 pub struct AdcDebugEnable {}
+
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+REINIT_PINS_STATE", NoResponse, timeout_ms = 4000)]
+pub struct ReInitPinsState {}
+
 
