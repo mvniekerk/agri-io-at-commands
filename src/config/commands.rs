@@ -1,8 +1,9 @@
 use super::responses::*;
 use super::types::*;
-use crate::{NoResponse, NumberResponse, U16Response};
+use crate::{NoResponse, NumberResponse, U16Response, TrueFalseResponse, U16HexResponse};
 use atat::heapless::String;
 use atat_derive::{AtatCmd};
+use serde_at::HexStr;
 use serde_at::serde::Deserialize;
 use crate::general::types::PinOnOff;
 
@@ -76,7 +77,11 @@ pub struct GpioCount {}
 #[derive(Deserialize, Debug, Eq, PartialEq, Clone, AtatCmd)]
 #[at_cmd("+GPIO_ADD", GpioPinAddOrSetResponse, timeout_ms = 4000)]
 pub struct GpioPinConfigAdd {
-    pub gpio_pin_config: GpioPinConfig,
+    pub pin_index: u8,
+    pub state: PinOnOff,
+    pub start_high: bool,
+    pub internal_pull_up: bool,
+    pub pin_type: GpioPinType,
 }
 
 #[derive(Deserialize, Debug, Eq, PartialEq, Clone, AtatCmd)]
@@ -112,6 +117,19 @@ pub struct GpioClearConfig {}
 #[at_cmd("+PIN_STATES_COUNT", U16Response, timeout_ms = 4000)]
 pub struct PinStatesCount {}
 
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+MCP23S17_DEVICES_COUNT", U16Response, timeout_ms = 4000)]
+pub struct McpDevicesCount {}
+
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+GPIO_DELAY_INIT_MS", U16Response, timeout_ms = 4000)]
+pub struct GpioDelayInitMs {
+    pub ms: u16
+}
+
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+GPIO_DELAY_INIT_MS=?", U16Response, timeout_ms = 4000)]
+pub struct GpioDelayInitMsGet {}
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+NAME_GET=?", NameGetResponse, timeout_ms = 4000)]
@@ -141,4 +159,36 @@ pub struct AdcDebugEnable {}
 #[at_cmd("+REINIT_PINS_STATE", NoResponse, timeout_ms = 4000)]
 pub struct ReInitPinsState {}
 
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+MCP23S17_DEBUG", TrueFalseResponse, timeout_ms = 4000)]
+pub struct Mcp23S17Debug {
+    pub enabled: bool
+}
+
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+MCP23S17_DEBUG=?", TrueFalseResponse, timeout_ms = 4000)]
+pub struct Mcp23S17DebugGet {}
+
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+MCP23S17_INIT_VALUE", U16HexResponse, timeout_ms = 4000)]
+pub struct Mcp23S17InitValueSet {
+    pub value: HexStr<u16>
+}
+
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+MCP23S17_INIT_VALUE=?", U16HexResponse, timeout_ms = 4000)]
+pub struct Mcp23S17InitValueGet {}
+
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+MCP23S17_LATCH_VALUE_GET", U16HexResponse, timeout_ms = 4000)]
+pub struct Mcp23S17LatchValueGet {
+    pub device_index: u8
+}
+
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+MCP23S17_LATCH_VALUE", U16HexResponse, timeout_ms = 4000)]
+pub struct Mcp23S17LatchValueSet {
+    pub device_index: u8,
+    pub value: HexStr<u16>
+}
 

@@ -1,6 +1,6 @@
 use atat_derive::AtatEnum;
 
-#[derive(Debug, Eq, PartialEq, Clone, AtatEnum, Hash)]
+#[derive(Debug, Eq, PartialEq, Clone, AtatEnum, Hash, Copy)]
 #[repr(u8)]
 pub enum PinOnOff {
     #[at_arg(value = 0)]

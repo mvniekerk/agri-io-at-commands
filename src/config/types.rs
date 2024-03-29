@@ -84,7 +84,7 @@ pub enum SensorDeviceType {
     AbbAcs,
 }
 
-#[derive(Debug, Eq, PartialEq, Clone, AtatEnum, Hash)]
+#[derive(Debug, Eq, PartialEq, Clone, AtatEnum, Hash, Copy)]
 pub enum GpioPinType {
     #[at_arg(value = 0)]
     BoardPin,

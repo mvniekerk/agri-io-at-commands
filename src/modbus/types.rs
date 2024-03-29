@@ -37,7 +37,7 @@ impl From<&UartStopBits> for u8 {
     }
 }
 
-#[derive(Clone, Debug, AtatEnum, PartialEq)]
+#[derive(Clone, Debug, AtatEnum, PartialEq, Copy)]
 pub enum UartDataBits {
     #[at_arg(value = 5)]
     Five,
