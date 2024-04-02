@@ -1,6 +1,6 @@
 use super::responses::*;
 use super::types::*;
-use crate::{NoResponse, NumberResponse, U16Response, TrueFalseResponse, U16HexResponse};
+use crate::{NoResponse, NumberResponse, U16Response, TrueFalseResponse, U16HexResponse, U8Response};
 use atat::heapless::String;
 use atat_derive::{AtatCmd};
 use serde_at::HexStr;
@@ -190,5 +190,20 @@ pub struct Mcp23S17LatchValueGet {
 pub struct Mcp23S17LatchValueSet {
     pub device_index: u8,
     pub value: HexStr<u16>
+}
+
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+MCP23S17_REG_GET", U8Response, timeout_ms = 4000)]
+pub struct Mcp23S17RegisterGet {
+    pub device_index: u8,
+    pub register: u8
+}
+
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+MCP23S17_REG_SET", U8Response, timeout_ms = 4000)]
+pub struct Mcp23S17RegisterSet {
+    pub device_index: u8,
+    pub register: u8,
+    pub value: u8
 }
 

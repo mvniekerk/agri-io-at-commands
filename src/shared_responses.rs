@@ -9,6 +9,14 @@ pub struct U8Response {
 }
 impl NumberResponse for U8Response {}
 
+impl From<u8> for U8Response {
+    fn from(value: u8) -> Self {
+        Self {
+            value
+        }
+    }
+}
+
 #[derive(Debug, Clone, AtatResp, PartialEq, Serialize, AtatLen)]
 pub struct U16Response {
     pub value: u16,
