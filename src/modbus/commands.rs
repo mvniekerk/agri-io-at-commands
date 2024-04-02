@@ -5,7 +5,7 @@ use atat_derive::AtatCmd;
 use serde_at::serde::Deserialize;
 
 #[derive(Debug, Clone, AtatCmd, Deserialize, PartialEq)]
-#[at_cmd("+MODBUS_UART", NoResponse)]
+#[at_cmd("+MODBUS_UART", UartSetupResponse)]
 pub struct ModbusUartSetup {
     pub baud_rate: u32,
     pub data_bits: UartDataBits,
