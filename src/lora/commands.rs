@@ -1,6 +1,5 @@
 use super::responses::*;
 use crate::{NoResponse, U16Response, TrueFalseResponse};
-use crate::shared_responses::BoolResponse;
 use atat_derive::AtatCmd;
 use serde_at::serde::Deserialize;
 use serde_at::HexStr;

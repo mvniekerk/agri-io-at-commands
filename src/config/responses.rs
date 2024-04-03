@@ -1,14 +1,21 @@
-use crate::config::types::{MeasurementConfigType, SensorDeviceType};
+use crate::config::types::{MeasurementConfigType, MeasurementSensorType, SensorDeviceType};
 use crate::general::types::PinOnOff;
 use crate::NumberResponse;
 use atat::heapless::String;
 use atat_derive::{AtatLen, AtatResp};
+use heapless::Vec;
 use serde::Serialize;
 
-#[derive(Debug, Clone, AtatResp, PartialEq)]
+#[derive(Debug, Clone, AtatResp, PartialEq, AtatLen, Serialize)]
 pub struct MeasurementConfigGetResponse {
-    pub config: MeasurementConfigType,
+    pub index: u8,
+    pub id: u8,
+    pub sensor_type: SensorDeviceType,
+    pub measurement_sensor_type: MeasurementSensorType,
+    pub config: Vec<MeasurementConfigType, 9>,
 }
+
+impl NumberResponse for MeasurementConfigGetResponse {}
 
 #[derive(Debug, Clone, AtatResp, PartialEq)]
 pub struct GpioPinConfigGetResponse {

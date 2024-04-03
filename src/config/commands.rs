@@ -3,6 +3,7 @@ use super::types::*;
 use crate::{NoResponse, NumberResponse, U16Response, TrueFalseResponse, U16HexResponse, U8Response};
 use atat::heapless::String;
 use atat_derive::{AtatCmd};
+use heapless::Vec;
 use serde_at::HexStr;
 use serde_at::serde::Deserialize;
 use crate::general::types::PinOnOff;
@@ -11,26 +12,27 @@ use crate::general::types::PinOnOff;
 #[at_cmd("+MEASUREMENT_CONF_GET", MeasurementConfigGetResponse)]
 pub struct MeasurementConfigGet {
     pub index: u8,
-    pub sensor_type: MeasurementSensorType,
-    pub config: MeasurementConfigTypeRequest,
+    pub sensor_type: MeasurementSensorType
 }
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+MEASUREMENT_CONF", MeasurementConfigGetResponse, timeout_ms = 4000)]
 pub struct MeasurementConfigSet {
     pub index: u8,
+    pub sensor_id: u8,
     pub sensor_type: MeasurementSensorType,
-    pub config: MeasurementConfigType,
+    pub sensor_device_type: SensorDeviceType,
+    pub config: Vec<MeasurementConfigType, 9>,
 }
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
-#[at_cmd("+MEASUREMENT_CONF_COUNT", MeasurementConfigGetResponse)]
+#[at_cmd("+MEASUREMENT_CONF_COUNT", U8Response, timeout_ms = 4000)]
 pub struct SensorConfigCountGet {
     pub sensor_type: MeasurementSensorType,
 }
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
-#[at_cmd("+ADD_SENSOR", NoResponse, timeout_ms = 4000)]
+#[at_cmd("+ADD_SENSOR", U8Response, timeout_ms = 4000)]
 pub struct AddSensor {
     pub sensor_type: MeasurementSensorType,
 }
