@@ -22,7 +22,7 @@ pub struct MeasurementConfigSet {
     pub sensor_id: u8,
     pub sensor_type: MeasurementSensorType,
     pub sensor_device_type: SensorDeviceType,
-    pub config: Vec<MeasurementConfigType, 9>,
+    pub config: Vec<MeasurementConfigType, 10>,
 }
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]

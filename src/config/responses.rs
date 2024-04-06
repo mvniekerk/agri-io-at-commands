@@ -12,7 +12,7 @@ pub struct MeasurementConfigGetResponse {
     pub id: u8,
     pub sensor_type: SensorDeviceType,
     pub measurement_sensor_type: MeasurementSensorType,
-    pub config: Vec<MeasurementConfigType, 9>,
+    pub config: Vec<MeasurementConfigType, 10>,
 }
 
 impl NumberResponse for MeasurementConfigGetResponse {}

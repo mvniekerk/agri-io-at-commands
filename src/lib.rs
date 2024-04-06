@@ -61,6 +61,12 @@ impl From<bool> for TrueFalseResponse {
     }
 }
 
+impl From<TrueFalseResponse> for bool {
+    fn from(value: TrueFalseResponse) -> Self {
+        value.true_false == "true"
+    }
+}
+
 impl NumberResponse for TrueFalseResponse {}
 
 #[derive(Debug, Clone, AtatResp, PartialEq, Serialize, AtatLen)]

@@ -29,6 +29,8 @@ pub enum MeasurementConfigType {
     OffLow(f32),
     #[at_arg(value = 8)]
     Scale(f32),
+    #[at_arg(value = 9)]
+    AdcConfig(u8, u16, f32)
 }
 
 #[derive(Clone, Debug, AtatEnum, PartialEq, MaxSize, Copy)]
@@ -50,7 +52,7 @@ pub enum MeasurementSensorType {
     Volts,
 }
 
-#[derive(Clone, Debug, AtatEnum, PartialEq, MaxSize)]
+#[derive(Clone, Debug, AtatEnum, PartialEq, MaxSize, Copy)]
 #[repr(u8)]
 pub enum SensorDeviceType {
     #[at_arg(value = 0)]
