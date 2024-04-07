@@ -3,6 +3,7 @@ use atat_derive::{AtatEnum, AtatLen};
 use heapless::Vec;
 use postcard::experimental::max_size::MaxSize;
 use serde::{Deserialize, Serialize};
+use serde_at::HexStr;
 
 pub const MAX_STATE_MACHINES_FOR_PIN: usize = 2;
 pub const MAX_AMOUNT_OF_PIN_STATES_PER_TRANSITION: usize = 4;
@@ -97,4 +98,27 @@ pub struct GpioPinConfig {
     pub internal_pull_up: bool,
     pub pin_type: GpioPinType,
     pub at_state: Vec<PinStateContainer, MAX_STATE_MACHINES_FOR_PIN>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, AtatLen)]
+pub struct AdcConfig {
+    pub pin: u8,
+    pub ref_0: u16,
+    pub per_volt: HexStr<[u8; 4]>
+}
+
+impl PartialEq for AdcConfig {
+    fn eq(&self, other: &Self) -> bool {
+        if self.pin == other.pin &&
+            self.ref_0 == other.ref_0 {
+            let mut l = f32::from_le_bytes(self.per_volt.val) - f32::from_le_bytes(other.per_volt.val);
+            if l < 0.0 {
+                l *= -1.0;
+            }
+            l < f32::EPSILON
+        } else {
+            false
+        }
+
+    }
 }

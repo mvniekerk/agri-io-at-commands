@@ -3,7 +3,6 @@ use super::types::*;
 use crate::{NoResponse, NumberResponse, U16Response, TrueFalseResponse, U16HexResponse, U8Response};
 use atat::heapless::String;
 use atat_derive::{AtatCmd};
-use heapless::Vec;
 use serde_at::HexStr;
 use serde_at::serde::Deserialize;
 use crate::general::types::PinOnOff;
@@ -22,7 +21,16 @@ pub struct MeasurementConfigSet {
     pub sensor_id: u8,
     pub sensor_type: MeasurementSensorType,
     pub sensor_device_type: SensorDeviceType,
-    pub config: Vec<MeasurementConfigType, 10>,
+    pub warn_low: HexStr<[u8; 4]>,
+    pub warn_high: HexStr<[u8; 4]>,
+    pub wait_for: bool,
+    pub dont_start: HexStr<[u8; 4]>,
+    pub high_guard: bool,
+    pub low_guard: bool,
+    pub off_high: HexStr<[u8; 4]>,
+    pub off_low: HexStr<[u8; 4]>,
+    pub scale: HexStr<[u8; 4]>,
+    pub adc_config: Option<AdcConfig>
 }
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
@@ -208,4 +216,3 @@ pub struct Mcp23S17RegisterSet {
     pub register: u8,
     pub value: u8
 }
-

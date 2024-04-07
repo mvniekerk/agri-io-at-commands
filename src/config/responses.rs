@@ -1,10 +1,10 @@
-use crate::config::types::{MeasurementConfigType, MeasurementSensorType, SensorDeviceType};
+use crate::config::types::{AdcConfig, MeasurementSensorType, SensorDeviceType};
 use crate::general::types::PinOnOff;
 use crate::NumberResponse;
 use atat::heapless::String;
 use atat_derive::{AtatLen, AtatResp};
-use heapless::Vec;
 use serde::Serialize;
+use serde_at::HexStr;
 
 #[derive(Debug, Clone, AtatResp, PartialEq, AtatLen, Serialize)]
 pub struct MeasurementConfigGetResponse {
@@ -12,7 +12,16 @@ pub struct MeasurementConfigGetResponse {
     pub id: u8,
     pub sensor_type: SensorDeviceType,
     pub measurement_sensor_type: MeasurementSensorType,
-    pub config: Vec<MeasurementConfigType, 10>,
+    pub warn_low: HexStr<[u8; 4]>,
+    pub warn_high: HexStr<[u8; 4]>,
+    pub wait_for: bool,
+    pub dont_start: HexStr<[u8; 4]>,
+    pub high_guard: bool,
+    pub low_guard: bool,
+    pub off_high: HexStr<[u8; 4]>,
+    pub off_low: HexStr<[u8; 4]>,
+    pub scale: HexStr<[u8; 4]>,
+    pub adc_config: Option<AdcConfig>
 }
 
 impl NumberResponse for MeasurementConfigGetResponse {}
