@@ -20,7 +20,10 @@ pub struct SequenceStop {
 
 #[derive(Debug, Clone, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+SEQ_ADD", NoResponse)]
-pub struct SequenceAdd {}
+pub struct SequenceAdd {
+    pub stopping_it_causes_shutdown_sequence: bool,
+    pub can_run_with_others: bool
+}
 
 #[derive(Debug, Clone, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+SEQ_DEL", NoResponse)]
