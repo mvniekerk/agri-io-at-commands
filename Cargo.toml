@@ -7,9 +7,9 @@ edition = "2021"
 
 [dependencies]
 
-atat = { git = "https://github.com/mvniekerk/atat.git", commit = "7d6aff95c1a4326817e466fbffbe1af0ee042512",  default-features=false, features = ["derive", "bytes", "hex_str_arrays", "async"] }
-atat_derive = { git = "https://github.com/mvniekerk/atat.git", commit = "7d6aff95c1a4326817e466fbffbe1af0ee042512" }
-serde_at = { git = "https://github.com/mvniekerk/atat.git", commit = "7d6aff95c1a4326817e466fbffbe1af0ee042512", default-features=false, features = ["hex_str_arrays"] }
+atat = { version = "0.22.0",  default-features=false, features = ["derive", "bytes", "hex_str_arrays"] }
+atat_derive = { version = "0.22.0" }
+serde_at = { version = "0.22.0", default-features=false, features = ["hex_str_arrays"] }
 
 defmt = { version = "0.3", optional = true }
 
@@ -22,6 +22,6 @@ postcard = { version = "1", features = ["experimental-derive", "use-defmt", "hea
 
 [features]
 debug = ["atat/defmt", "defmt"]
-async = ["atat/async", "embedded-io"]
+async = ["embedded-io"]
 default = ["async"]
 #default = ["debug", "async"]
