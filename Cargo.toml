@@ -1,15 +1,15 @@
 [package]
 name = "agri-io-at-commands"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 
-atat = { version = "0.22.0",  default-features=false, features = ["derive", "bytes", "hex_str_arrays"] }
-atat_derive = { version = "0.22.0" }
-serde_at = { version = "0.22.0", default-features=false, features = ["hex_str_arrays"] }
+atat = { git = "https://github.com/mvniekerk/atat.git", tag = "v20.2",  default-features=false, features = ["derive", "bytes", "hex_str_arrays", "async"] }
+atat_derive = { git = "https://github.com/mvniekerk/atat.git", tag = "v20.2" }
+serde_at = { git = "https://github.com/mvniekerk/atat.git", tag = "v20.2", default-features=false, features = ["hex_str_arrays"] }
 
 defmt = { version = "0.3", optional = true }
 
@@ -22,6 +22,6 @@ postcard = { version = "1", features = ["experimental-derive", "use-defmt", "hea
 
 [features]
 debug = ["atat/defmt", "defmt"]
-async = ["embedded-io"]
+async = ["atat/async", "embedded-io"]
 default = ["async"]
 #default = ["debug", "async"]
