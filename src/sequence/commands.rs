@@ -1,5 +1,6 @@
 use crate::sequence::types::ActionType;
 use crate::{NoResponse, U16Response, TrueFalseResponse};
+use crate::sequence::responses::{SequencesState, SequenceState};
 use atat_derive::AtatCmd;
 use serde::Deserialize;
 
@@ -72,3 +73,14 @@ pub struct SequenceRunningCount {}
 pub struct SequenceIsRunning {
     pub sequence_index: u8
 }
+#[derive(Debug, Clone, AtatCmd, Deserialize, PartialEq)]
+#[at_cmd("+SEQUENCES_STATE", SequencesState)]
+pub struct SequencesStateGet {}
+
+#[derive(Debug, Clone, AtatCmd, Deserialize, PartialEq)]
+#[at_cmd("+SEQ_STATE", SequenceState)]
+pub struct SequenceStateGet {
+    pub sequence_index: u8
+}
+
+
