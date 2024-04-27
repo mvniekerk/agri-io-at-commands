@@ -83,4 +83,12 @@ pub struct SequenceStateGet {
     pub sequence_index: u8
 }
 
+#[derive(Debug, Clone, AtatCmd, Deserialize, PartialEq)]
+#[at_cmd("+SEQ_PAUSED=?", TrueFalseResponse)]
+pub struct SequencePausedGet {}
 
+#[derive(Debug, Clone, AtatCmd, Deserialize, PartialEq)]
+#[at_cmd("+SEQ_PAUSED", TrueFalseResponse)]
+pub struct SequencePausedSet {
+    pub paused: bool
+}
