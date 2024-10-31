@@ -51,3 +51,9 @@ pub struct SequencePinListeningSet {
     pub pin: PinSequenceListeners,
     pub value: bool
 }
+
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+SEQUENCE_PIN_LISTENING_START", U8Response, timeout_ms = 4000)]
+pub struct SequencePinListeningStart {
+    pub pin: PinSequenceListeners
+}
