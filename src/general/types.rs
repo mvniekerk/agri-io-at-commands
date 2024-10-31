@@ -23,3 +23,24 @@ impl From<&PinOnOff> for u8 {
         }
     }
 }
+
+#[derive(Debug, Eq, PartialEq, Clone, AtatEnum, Hash, Copy)]
+#[repr(u8)]
+pub enum PinSequenceListeners {
+    #[at_arg(value = 0)]
+    BootMode = 0,
+    #[at_arg(value = 1)]
+    SequenceNumber = 1,
+    #[at_arg(value = 2)]
+    StartStopPin = 2,
+}
+
+impl From<&PinSequenceListeners> for u8 {
+    fn from(value: &PinSequenceListeners) -> Self {
+        match value {
+            PinSequenceListeners::BootMode => 0,
+            PinSequenceListeners::SequenceNumber => 1,
+            PinSequenceListeners::StartStopPin => 2,
+        }
+    }
+}
