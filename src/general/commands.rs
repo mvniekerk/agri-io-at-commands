@@ -1,6 +1,6 @@
 use super::responses::*;
 use super::types::*;
-use crate::{NoResponse, U8Response};
+use crate::{NoResponse, U8Response, TrueFalseResponse};
 use atat_derive::AtatCmd;
 use serde::Deserialize;
 
@@ -40,20 +40,20 @@ pub struct FactoryReset {}
 pub struct ResetFaultStatus {}
 
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
-#[at_cmd("+SEQUENCE_PIN_LISTENING_GET", U8Response, timeout_ms = 4000)]
+#[at_cmd("+SEQUENCE_PIN_LISTENING_GET", TrueFalseResponse, timeout_ms = 4000)]
 pub struct SequencePinListeningGet {
     pub pin: PinSequenceListeners
 }
 
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
-#[at_cmd("+SEQUENCE_PIN_LISTENING_SET", U8Response, timeout_ms = 4000)]
+#[at_cmd("+SEQUENCE_PIN_LISTENING_SET", TrueFalseResponse, timeout_ms = 4000)]
 pub struct SequencePinListeningSet {
     pub pin: PinSequenceListeners,
     pub value: bool
 }
 
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
-#[at_cmd("+SEQUENCE_PIN_LISTENING_START", U8Response, timeout_ms = 4000)]
+#[at_cmd("+SEQUENCE_PIN_LISTENING_START", TrueFalseResponse, timeout_ms = 4000)]
 pub struct SequencePinListeningStart {
     pub pin: PinSequenceListeners
 }
