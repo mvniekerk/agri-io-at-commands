@@ -24,7 +24,7 @@ pub use shared_responses::{U16Response, U8Response, U16HexResponse};
 
 pub trait NumberResponse {}
 
-pub const BUFFER_SIZE_IN_BYTES: usize = 400;
+pub const BUFFER_SIZE_IN_BYTES: usize = 200;
 
 #[derive(Debug, Clone, AtatResp, PartialEq, AtatLen, Serialize)]
 pub struct NoResponse {}
