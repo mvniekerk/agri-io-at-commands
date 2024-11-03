@@ -97,6 +97,7 @@ pub struct ModbusGenericValueRemove {
 #[at_cmd("+MODBUS_GENERIC_VALUE_OPERATION_ADD", U8Response, timeout_ms = 4000)]
 pub struct ModbusGenericValueOperationAdd {
     pub id: u8,
+    pub value_id: u8,
     pub register: u16,
     pub left_shift: u8,
     pub right_shift: u8,
