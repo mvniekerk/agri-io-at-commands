@@ -75,7 +75,7 @@ pub struct ModbusGenericAdd {
 }
 
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
-#[at_cmd("+MODBUS_GENERIC_DEVICE_REMOVE", NoResponse, timeout_ms = 4000)]
+#[at_cmd("+MODBUS_GENERIC_DEVICE_REMOVE", U8Response, timeout_ms = 4000)]
 pub struct ModbusGenericRemove {
     pub id: u8,
 }
