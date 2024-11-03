@@ -1,4 +1,4 @@
-use crate::modbus::types::{UartDataBits, UartParity, UartStopBits};
+use crate::modbus::types::{Operation, UartDataBits, UartParity, UartStopBits};
 use crate::NumberResponse;
 use atat_derive::{AtatLen, AtatResp};
 use serde::Serialize;
@@ -24,6 +24,7 @@ pub struct ModbusGenericValueOperationResponse {
     pub divided_by: u16,
     pub multiplied_by: u16,
     pub mask: u16,
+    pub operation: Operation,
 }
 
 impl NumberResponse for ModbusGenericValueOperationResponse {}

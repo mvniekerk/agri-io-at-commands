@@ -59,3 +59,28 @@ impl From<&UartDataBits> for u8 {
         }
     }
 }
+
+#[derive(Clone, Debug, AtatEnum, PartialEq, Copy)]
+pub enum Operation {
+    #[at_arg(value = 0)]
+    SUBTRACT,
+    #[at_arg(value = 1)]
+    ADD,
+    #[at_arg(value = 2)]
+    MULTIPLY,
+    #[at_arg(value = 3)]
+    DIVIDE,
+}
+
+impl From<&Operation> for u8 {
+    fn from(operation: &Operation) -> Self {
+        match operation {
+            Operation::SUBTRACT => 0,
+            Operation::ADD => 1,
+            Operation::MULTIPLY => 2,
+            Operation::DIVIDE => 3,
+        }
+    }
+}
+
+

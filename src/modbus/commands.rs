@@ -104,6 +104,7 @@ pub struct ModbusGenericValueOperationAdd {
     pub divided_by: u16,
     pub multiplied_by: u16,
     pub mask: u16,
+    pub operation: Operation,
 }
 
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
