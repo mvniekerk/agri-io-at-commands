@@ -81,6 +81,19 @@ pub struct ModbusGenericRemove {
 }
 
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+MODBUS_GENERIC_VALUE_ADD", U8Response, timeout_ms = 4000)]
+pub struct ModbusGenericValueAdd {
+    pub id: u8,
+}
+
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+MODBUS_GENERIC_VALUE_REMOVE", NoResponse, timeout_ms = 4000)]
+pub struct ModbusGenericValueRemove {
+    pub id: u8,
+    pub value_id: u8,
+}
+
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
 #[at_cmd("+MODBUS_GENERIC_VALUE_OPERATION_ADD", U8Response, timeout_ms = 4000)]
 pub struct ModbusGenericValueOperationAdd {
     pub id: u8,
@@ -96,18 +109,19 @@ pub struct ModbusGenericValueOperationAdd {
 #[at_cmd("+MODBUS_GENERIC_VALUE_OPERATION_REMOVE", NoResponse, timeout_ms = 4000)]
 pub struct ModbusGenericValueOperationRemove {
     pub id: u8,
-    pub register_id: u8,
+    pub value_id: u8
 }
 
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
 #[at_cmd("+MODBUS_GENERIC_VALUE_OPERATION_GET", U8Response, timeout_ms = 4000)]
 pub struct ModbusGenericValueOperationGet {
     pub id: u8,
-    pub register_id: u8,
+    pub value_id: u8,
 }
 
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
 #[at_cmd("+MODBUS_GENERIC_VALUE_OPERATION_COUNT", U8Response, timeout_ms = 4000)]
 pub struct ModbusGenericValueOperationCount {
     pub id: u8,
+    pub value_id: u8
 }
