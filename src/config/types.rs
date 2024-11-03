@@ -62,6 +62,8 @@ pub enum SensorDeviceType {
     MotorelliAd1000,
     #[at_arg(value = 2)]
     AbbAcs,
+    #[at_arg(value = 3)]
+    GenericModbus,
 }
 
 #[derive(Debug, Eq, PartialEq, Clone, AtatEnum, Hash, Copy)]
