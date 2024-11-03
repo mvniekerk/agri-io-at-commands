@@ -25,6 +25,7 @@ pub struct ModbusGenericValueOperationResponse {
     pub multiplied_by: u16,
     pub mask: u16,
     pub operation: Operation,
+    pub is_coil: bool,
 }
 
 impl NumberResponse for ModbusGenericValueOperationResponse {}
