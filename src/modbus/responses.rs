@@ -13,3 +13,17 @@ pub struct UartSetupResponse {
 }
 
 impl NumberResponse for UartSetupResponse {}
+
+#[derive(Debug, Clone, AtatResp, PartialEq, AtatLen, Serialize)]
+pub struct ModbusGenericValueOperationResponse {
+    pub id: u8,
+    pub value_id: u8,
+    pub register: u16,
+    pub left_shift: u8,
+    pub right_shift: u8,
+    pub divided_by: u16,
+    pub multiplied_by: u16,
+    pub mask: u16,
+}
+
+impl NumberResponse for ModbusGenericValueOperationResponse {}
