@@ -59,7 +59,7 @@ pub struct SequencePinListeningStart {
 }
 
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
-#[at_cmd("+REBOOT_IN_MODE", TrueFalseResponse, timeout_ms = 4000)]
+#[at_cmd("+REBOOT_IN_MODE", NoResponse, timeout_ms = 4000)]
 pub struct RebootInMode {
     pub mode: RebootMode
 }
