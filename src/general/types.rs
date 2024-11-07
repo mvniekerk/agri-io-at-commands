@@ -44,3 +44,18 @@ impl From<&PinSequenceListeners> for u8 {
         }
     }
 }
+
+#[derive(Debug, Eq, PartialEq, Clone, AtatEnum, Hash, Copy)]
+#[repr(u8)]
+pub enum RebootMode {
+    #[at_arg(value = 0)]
+    NotSet = 0,
+    #[at_arg(value = 1)]
+    Normal = 1,
+    #[at_arg(value = 2)]
+    Config = 2,
+    #[at_arg(value = 3)]
+    Debug = 3,
+    #[at_arg(value = 4)]
+    FactoryReset = 4
+}
