@@ -18,7 +18,8 @@ impl NumberResponse for UartSetupResponse {}
 pub struct ModbusGenericValueOperationResponse {
     pub id: u8,
     pub value_id: u8,
-    pub register: u16,
+    pub register_or_value: u16,
+    pub is_register: bool,
     pub left_shift: u8,
     pub right_shift: u8,
     pub divided_by: u16,
