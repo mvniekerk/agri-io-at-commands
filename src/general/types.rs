@@ -60,19 +60,6 @@ pub enum RebootMode {
     FactoryReset = 4
 }
 
-impl From<u8> for RebootMode {
-    fn from(value: u8) -> Self {
-        match value {
-            0 => RebootMode::NotSet,
-            1 => RebootMode::Normal,
-            2 => RebootMode::Config,
-            3 => RebootMode::Debug,
-            4 => RebootMode::FactoryReset,
-            _ => RebootMode::NotSet,
-        }
-    }
-}
-
 impl From<&RebootMode> for u8 {
     fn from(value: &RebootMode) -> Self {
         match value {
