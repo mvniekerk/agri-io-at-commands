@@ -57,7 +57,9 @@ pub enum RebootMode {
     #[at_arg(value = 3)]
     Debug = 3,
     #[at_arg(value = 4)]
-    FactoryReset = 4
+    FactoryReset = 4,
+    #[at_arg(value = 5)]
+    UsbBoot = 5
 }
 
 impl From<&RebootMode> for u8 {
@@ -68,6 +70,7 @@ impl From<&RebootMode> for u8 {
             RebootMode::Config => 2,
             RebootMode::Debug => 3,
             RebootMode::FactoryReset => 4,
+            RebootMode::UsbBoot => 5,
         }
     }
 }
