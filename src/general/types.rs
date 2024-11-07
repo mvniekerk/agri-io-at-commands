@@ -72,3 +72,15 @@ impl From<u8> for RebootMode {
         }
     }
 }
+
+impl From<&RebootMode> for u8 {
+    fn from(value: &RebootMode) -> Self {
+        match value {
+            RebootMode::NotSet => 0,
+            RebootMode::Normal => 1,
+            RebootMode::Config => 2,
+            RebootMode::Debug => 3,
+            RebootMode::FactoryReset => 4,
+        }
+    }
+}
