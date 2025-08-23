@@ -20,7 +20,7 @@ pub mod shared_responses;
 pub mod speed;
 pub mod urc;
 
-pub use shared_responses::{U16HexResponse, U16Response, U8Response};
+pub use shared_responses::{U16HexResponse, U16Response, U32Response, U8Response};
 
 pub trait NumberResponse {}
 

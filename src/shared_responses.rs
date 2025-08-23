@@ -47,3 +47,15 @@ pub struct BoolResponse {
     pub value: bool,
 }
 impl NumberResponse for BoolResponse {}
+
+#[derive(Debug, Clone, AtatResp, PartialEq, Serialize, AtatLen)]
+pub struct U32Response {
+    pub value: u32,
+}
+impl NumberResponse for U32Response {}
+
+impl From<u32> for U32Response {
+    fn from(value: u32) -> Self {
+        U32Response { value }
+    }
+}

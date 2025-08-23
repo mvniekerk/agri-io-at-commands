@@ -1,6 +1,6 @@
 use super::responses::*;
 use super::types::*;
-use crate::{NoResponse, TrueFalseResponse, U16Response, U8Response};
+use crate::{NoResponse, TrueFalseResponse, U16Response, U32Response, U8Response};
 use atat_derive::AtatCmd;
 use serde_at::serde::Deserialize;
 
@@ -65,6 +65,21 @@ pub struct ModbusRegisterSet {
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
 #[at_cmd("+MODBUS_REGISTER_GET", U16Response, timeout_ms = 4000)]
 pub struct ModbusRegisterGet {
+    pub unit_id: u8,
+    pub register: u16,
+}
+
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+MODBUS_ULONG_REGISTER_SET", NoResponse, timeout_ms = 4000)]
+pub struct ModbusUlongRegisterSet {
+    pub unit_id: u8,
+    pub register: u16,
+    pub value: u32,
+}
+
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+MODBUS_ULONG_REGISTER_GET", U32Response, timeout_ms = 4000)]
+pub struct ModbusUlongRegisterGet {
     pub unit_id: u8,
     pub register: u16,
 }

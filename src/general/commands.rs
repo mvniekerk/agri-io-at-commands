@@ -1,6 +1,6 @@
 use super::responses::*;
 use super::types::*;
-use crate::{NoResponse, TrueFalseResponse, U8Response};
+use crate::{NoResponse, TrueFalseResponse};
 use atat_derive::AtatCmd;
 use serde::Deserialize;
 
