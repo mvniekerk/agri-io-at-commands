@@ -225,12 +225,12 @@ pub struct Mcp23S17RegisterSet {
 #[at_cmd("+MEASUREMENT_ADC_GET", U16Response, timeout_ms = 4000)]
 pub struct MeasurementAdcGet {
     pub index: u8,
-    pub sensor_id: u8,
+    pub sensor_type: MeasurementSensorType,
 }
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+MEASUREMENT_VALUE_GET", F32Response, timeout_ms = 4000)]
 pub struct MeasurementValueGet {
     pub index: u8,
-    pub sensor_id: u8,
+    pub sensor_type: MeasurementSensorType,
 }
