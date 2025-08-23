@@ -82,5 +82,3 @@ impl From<&Operation> for u8 {
         }
     }
 }
-
-

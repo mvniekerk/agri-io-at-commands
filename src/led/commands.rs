@@ -21,7 +21,6 @@ pub struct Pulse {
     pub off_time_ms: u64,
 }
 
-
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+LED_INVERT=?", U8Response)]
 pub struct LedInvertGet {}

@@ -31,7 +31,7 @@ pub enum MeasurementConfigType {
     #[at_arg(value = 8)]
     Scale(f32),
     #[at_arg(value = 9)]
-    AdcConfig(u8, u16, f32)
+    AdcConfig(u8, u16, f32),
 }
 
 #[derive(Clone, Debug, AtatEnum, PartialEq, MaxSize, Copy)]
@@ -106,14 +106,14 @@ pub struct GpioPinConfig {
 pub struct AdcConfig {
     pub pin: u8,
     pub ref_0: u16,
-    pub per_volt: HexStr<[u8; 4]>
+    pub per_volt: HexStr<[u8; 4]>,
 }
 
 impl PartialEq for AdcConfig {
     fn eq(&self, other: &Self) -> bool {
-        if self.pin == other.pin &&
-            self.ref_0 == other.ref_0 {
-            let mut l = f32::from_le_bytes(self.per_volt.val) - f32::from_le_bytes(other.per_volt.val);
+        if self.pin == other.pin && self.ref_0 == other.ref_0 {
+            let mut l =
+                f32::from_le_bytes(self.per_volt.val) - f32::from_le_bytes(other.per_volt.val);
             if l < 0.0 {
                 l *= -1.0;
             }
@@ -121,6 +121,5 @@ impl PartialEq for AdcConfig {
         } else {
             false
         }
-
     }
 }

@@ -1,6 +1,6 @@
+use crate::sequence::responses::{SequenceState, SequencesState};
 use crate::sequence::types::ActionType;
-use crate::{NoResponse, U16Response, TrueFalseResponse};
-use crate::sequence::responses::{SequencesState, SequenceState};
+use crate::{NoResponse, TrueFalseResponse, U16Response};
 use atat_derive::AtatCmd;
 use serde::Deserialize;
 
@@ -23,7 +23,7 @@ pub struct SequenceStop {
 #[at_cmd("+SEQ_ADD", NoResponse)]
 pub struct SequenceAdd {
     pub stopping_it_causes_shutdown_sequence: bool,
-    pub can_run_with_others: bool
+    pub can_run_with_others: bool,
 }
 
 #[derive(Debug, Clone, AtatCmd, Deserialize, PartialEq)]
@@ -61,7 +61,7 @@ pub struct SequenceDebugGet {}
 #[derive(Debug, Clone, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+SEQ_DEBUG", TrueFalseResponse)]
 pub struct SequenceDebugSet {
-    pub debug_on: bool
+    pub debug_on: bool,
 }
 
 #[derive(Debug, Clone, AtatCmd, Deserialize, PartialEq)]
@@ -71,7 +71,7 @@ pub struct SequenceRunningCount {}
 #[derive(Debug, Clone, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+SEQ_IS_RUNNING", TrueFalseResponse)]
 pub struct SequenceIsRunning {
-    pub sequence_index: u8
+    pub sequence_index: u8,
 }
 #[derive(Debug, Clone, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+SEQUENCES_STATE", SequencesState)]
@@ -80,7 +80,7 @@ pub struct SequencesStateGet {}
 #[derive(Debug, Clone, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+SEQ_STATE", SequenceState)]
 pub struct SequenceStateGet {
-    pub sequence_index: u8
+    pub sequence_index: u8,
 }
 
 #[derive(Debug, Clone, AtatCmd, Deserialize, PartialEq)]
@@ -90,5 +90,5 @@ pub struct SequencePausedGet {}
 #[derive(Debug, Clone, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+SEQ_PAUSED", TrueFalseResponse)]
 pub struct SequencePausedSet {
-    pub paused: bool
+    pub paused: bool,
 }

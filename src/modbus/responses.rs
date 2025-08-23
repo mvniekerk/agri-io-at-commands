@@ -10,6 +10,7 @@ pub struct UartSetupResponse {
     pub stopbits: UartStopBits,
     pub parity: UartParity,
     pub device_id: u8,
+    pub active_high: bool,
 }
 
 impl NumberResponse for UartSetupResponse {}

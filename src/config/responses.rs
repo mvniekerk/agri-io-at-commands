@@ -21,7 +21,7 @@ pub struct MeasurementConfigGetResponse {
     pub off_high: HexStr<[u8; 4]>,
     pub off_low: HexStr<[u8; 4]>,
     pub scale: HexStr<[u8; 4]>,
-    pub adc_config: Option<AdcConfig>
+    pub adc_config: Option<AdcConfig>,
 }
 
 impl NumberResponse for MeasurementConfigGetResponse {}

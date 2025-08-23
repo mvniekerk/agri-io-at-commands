@@ -59,7 +59,7 @@ pub enum RebootMode {
     #[at_arg(value = 4)]
     FactoryReset = 4,
     #[at_arg(value = 5)]
-    UsbBoot = 5
+    UsbBoot = 5,
 }
 
 impl From<&RebootMode> for u8 {

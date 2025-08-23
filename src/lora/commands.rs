@@ -1,5 +1,5 @@
 use super::responses::*;
-use crate::{NoResponse, U16Response, TrueFalseResponse};
+use crate::{NoResponse, TrueFalseResponse, U16Response};
 use atat_derive::AtatCmd;
 use serde_at::serde::Deserialize;
 use serde_at::HexStr;
@@ -127,5 +127,3 @@ pub struct LoraRebootAfterTriesSet {
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+LORA_START", NoResponse)]
 pub struct LoraStart {}
-
-

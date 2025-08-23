@@ -12,6 +12,7 @@ pub struct ModbusUartSetup {
     pub parity: UartParity,
     pub stop_bits: UartStopBits,
     pub device_id: u8,
+    pub active_high: bool,
 }
 
 #[derive(Debug, Clone, AtatCmd, Deserialize, PartialEq)]
@@ -114,7 +115,11 @@ pub struct ModbusGenericValueOperationAdd {
 }
 
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
-#[at_cmd("+MODBUS_GENERIC_VALUE_OPERATION_REMOVE", NoResponse, timeout_ms = 4000)]
+#[at_cmd(
+    "+MODBUS_GENERIC_VALUE_OPERATION_REMOVE",
+    NoResponse,
+    timeout_ms = 4000
+)]
 pub struct ModbusGenericValueOperationRemove {
     pub id: u8,
     pub value_id: u8,
@@ -122,7 +127,11 @@ pub struct ModbusGenericValueOperationRemove {
 }
 
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
-#[at_cmd("+MODBUS_GENERIC_VALUE_OPERATION_GET", ModbusGenericValueOperationResponse, timeout_ms = 4000)]
+#[at_cmd(
+    "+MODBUS_GENERIC_VALUE_OPERATION_GET",
+    ModbusGenericValueOperationResponse,
+    timeout_ms = 4000
+)]
 pub struct ModbusGenericValueOperationGet {
     pub id: u8,
     pub value_id: u8,
@@ -133,5 +142,5 @@ pub struct ModbusGenericValueOperationGet {
 #[at_cmd("+MODBUS_GENERIC_VALUE_OPERATION_COUNT", U8Response, timeout_ms = 4000)]
 pub struct ModbusGenericValueOperationCount {
     pub id: u8,
-    pub value_id: u8
+    pub value_id: u8,
 }

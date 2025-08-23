@@ -11,9 +11,7 @@ impl NumberResponse for U8Response {}
 
 impl From<u8> for U8Response {
     fn from(value: u8) -> Self {
-        Self {
-            value
-        }
+        Self { value }
     }
 }
 
@@ -25,9 +23,7 @@ impl NumberResponse for U16Response {}
 
 impl From<u16> for U16Response {
     fn from(value: u16) -> Self {
-        U16Response {
-            value
-        }
+        U16Response { value }
     }
 }
 
@@ -40,9 +36,7 @@ impl From<u16> for U16HexResponse {
     fn from(val: u16) -> Self {
         let mut value = HexStr::default();
         value.val = val;
-        Self {
-            value
-        }
+        Self { value }
     }
 }
 
