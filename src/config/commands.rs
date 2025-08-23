@@ -2,7 +2,8 @@ use super::responses::*;
 use super::types::*;
 use crate::general::types::PinOnOff;
 use crate::{
-    NoResponse, NumberResponse, TrueFalseResponse, U16HexResponse, U16Response, U8Response,
+    F32Response, NoResponse, NumberResponse, TrueFalseResponse, U16HexResponse, U16Response,
+    U8Response,
 };
 use atat::heapless::String;
 use atat_derive::AtatCmd;
@@ -218,4 +219,18 @@ pub struct Mcp23S17RegisterSet {
     pub device_index: u8,
     pub register: u8,
     pub value: u8,
+}
+
+#[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
+#[at_cmd("+MEASUREMENT_ADC_GET", U16Response, timeout_ms = 4000)]
+pub struct MeasurementAdcGet {
+    pub index: u8,
+    pub sensor_id: u8,
+}
+
+#[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
+#[at_cmd("+MEASUREMENT_VALUE_GET", F32Response, timeout_ms = 4000)]
+pub struct MeasurementValueGet {
+    pub index: u8,
+    pub sensor_id: u8,
 }

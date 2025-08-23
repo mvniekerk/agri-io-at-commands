@@ -59,3 +59,15 @@ impl From<u32> for U32Response {
         U32Response { value }
     }
 }
+
+#[derive(Debug, Clone, AtatResp, PartialEq, Serialize, AtatLen)]
+pub struct F32Response {
+    pub value: f32,
+}
+impl NumberResponse for F32Response {}
+
+impl From<f32> for F32Response {
+    fn from(value: f32) -> Self {
+        F32Response { value }
+    }
+}
