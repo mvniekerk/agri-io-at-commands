@@ -89,6 +89,10 @@ pub struct ModbusUlongRegisterGet {
 pub struct ModbusGenericClearAll {}
 
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+MODBUS_GENERIC_DEVICE_COUNT", U8Response, timeout_ms = 4000)]
+pub struct ModbusGenericCount {}
+
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
 #[at_cmd("+MODBUS_GENERIC_DEVICE_ADD", U8Response, timeout_ms = 4000)]
 pub struct ModbusGenericAdd {
     pub unit_id: u8,
