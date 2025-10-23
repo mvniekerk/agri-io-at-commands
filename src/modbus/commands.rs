@@ -118,6 +118,12 @@ pub struct ModbusGenericValueRemove {
 }
 
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+MODBUS_GENERIC_VALUE_COUNT", U8Response, timeout_ms = 4000)]
+pub struct ModbusGenericValueCount {
+    pub id: u8,
+}
+
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
 #[at_cmd("+MODBUS_GENERIC_VALUE_OPERATION_ADD", U8Response, timeout_ms = 4000)]
 pub struct ModbusGenericValueOperationAdd {
     pub id: u8,
