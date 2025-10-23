@@ -1,6 +1,5 @@
 #![no_std]
 #![feature(generic_const_exprs)]
-extern crate alloc;
 
 use atat::AtatLen;
 use atat_derive::{AtatEnum, AtatLen, AtatResp};
