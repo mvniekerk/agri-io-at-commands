@@ -6,6 +6,7 @@ use heapless::String;
 use serde::Serialize;
 use serde_at::HexStr;
 use core::fmt::Write;
+use core::str::FromStr;
 
 #[derive(Debug, Clone, AtatResp, PartialEq, Serialize, AtatLen)]
 pub struct U8Response {
@@ -66,14 +67,13 @@ impl From<u32> for U32Response {
 
 #[derive(Debug, Clone, PartialEq, Serialize, AtatResp, AtatLen)]
 pub struct F32Response {
-    pub value: String<44>,
+    pub value: String<50>,
 }
 
-fn f32_to_string(f: f32) -> String<44> {
-    let mut s: String<44> = String::new();
-    let v = write!(&mut s, "\"{}\"", f);
-    if v.is_err() {
-        return String::default();
+fn f32_to_string(f: f32) -> String<50> {
+    let mut s: String<50> = String::new();
+    if write!(&mut s, "\"{}\"", f).is_err() {
+        return String::from_str("\"0.0\"").unwrap_or_default();
     }
     s
 }
@@ -82,7 +82,7 @@ impl From<f32> for F32Response {
     fn from(value: f32) -> Self {
         let value = f32_to_string(value);
         Self {
-            value: String::default()
+            value
         }
     }
 }
