@@ -99,6 +99,13 @@ pub struct ModbusGenericAdd {
 }
 
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+MODBUS_GENERIC_DEVICE_SET_UNIT_ID", U8Response, timeout_ms = 4000)]
+pub struct ModbusGenericSetUnitId {
+    pub id: u8,
+    pub unit_id: u8,
+}
+
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
 #[at_cmd("+MODBUS_GENERIC_DEVICE_REMOVE", U8Response, timeout_ms = 4000)]
 pub struct ModbusGenericRemove {
     pub id: u8,
