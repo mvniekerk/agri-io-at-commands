@@ -1,6 +1,6 @@
 [package]
 name = "agri-io-at-commands"
-version = "0.2.31"
+version = "0.2.32"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -20,8 +20,10 @@ serde = { version = "1", default-features=false, features = ["derive"] }
 heapless = "0.8"
 postcard = { version = "1", features = ["experimental-derive", "use-defmt", "heapless"] }
 
+[dev-dependencies]
+defmt = { version = "0.3" }
+
 [features]
 debug = ["atat/defmt", "defmt"]
 async = ["atat/async", "embedded-io"]
 default = ["async"]
-#default = ["debug", "async"]
