@@ -1,4 +1,3 @@
-use core::fmt::Write;
 use crate::{NumberResponse, VALUES_SERIALIZE_OPTIONS};
 use atat_derive::{AtatLen, AtatResp};
 #[cfg(feature = "debug")]
@@ -70,12 +69,12 @@ pub struct F32Response {
 }
 
 fn f32_to_string(f: f32) -> String<44> {
-    let mut s: String<44> = String::new();
-    let v = write!(&mut s, "\"{}\"", f);
-    if v.is_err() {
+    // let mut s: String<44> = String::new();
+    // let v = write!(&mut s, "\"{}\"", f);
+    // if v.is_err() {
         return String::default();
-    }
-    s
+    // }
+    // s
 }
 
 impl From<f32> for F32Response {
