@@ -68,28 +68,29 @@ pub struct F32Response {
     pub value: String<44>,
 }
 
-fn f32_to_string(f: f32) -> String<44> {
-    // let mut s: String<44> = String::new();
-    // let v = write!(&mut s, "\"{}\"", f);
-    // if v.is_err() {
-        return String::default();
-    // }
-    // s
-}
+// fn f32_to_string(f: f32) -> String<44> {
+//     // let mut s: String<44> = String::new();
+//     // let v = write!(&mut s, "\"{}\"", f);
+//     // if v.is_err() {
+//         return String::default();
+//     // }
+//     // s
+// }
 
 impl From<f32> for F32Response {
     fn from(value: f32) -> Self {
-        let value = f32_to_string(value);
+        // let value = f32_to_string(value);
         Self {
-            value
+            value: String::default()
         }
     }
 }
 
 impl From<&F32Response> for f32 {
     fn from(value: &F32Response) -> Self {
-        let value: f32 = value.value.parse().unwrap_or(0.0);
-        value
+        // let value: f32 = value.value.parse().unwrap_or(0.0);
+        // value
+        0.0
     }
 }
 
