@@ -160,6 +160,17 @@ pub struct ModbusGenericValueOperationRemove {
 
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
 #[at_cmd(
+    "+MODBUS_GENERIC_VALUE_OPERATIONS_CLEAR",
+    NoResponse,
+    timeout_ms = 4000
+)]
+pub struct ModbusGenericValueOperationsClear {
+    pub id: u8,
+    pub value_id: u8,
+}
+
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd(
     "+MODBUS_GENERIC_VALUE_OPERATION_GET",
     ModbusGenericValueOperationResponse,
     timeout_ms = 4000
