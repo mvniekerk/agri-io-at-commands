@@ -34,7 +34,7 @@ pub enum MeasurementConfigType {
     AdcConfig(u8, u16, f32),
 }
 
-#[derive(Clone, Debug, AtatEnum, PartialEq, MaxSize, Copy)]
+#[derive(Clone, Debug, AtatEnum, PartialEq, MaxSize, Copy, Eq)]
 #[repr(u8)]
 pub enum MeasurementSensorType {
     #[at_arg(value = 0)]
