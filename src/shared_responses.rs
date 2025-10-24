@@ -1,4 +1,4 @@
-use crate::{NumberResponse, VALUES_SERIALIZE_OPTIONS};
+use crate::{NumberResponse};
 use atat_derive::{AtatLen, AtatResp};
 #[cfg(feature = "debug")]
 use defmt::error;

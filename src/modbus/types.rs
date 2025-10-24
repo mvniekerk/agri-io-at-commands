@@ -1,7 +1,5 @@
 use atat_derive::AtatEnum;
 use postcard::experimental::max_size::MaxSize;
-use crate::config::types::MeasurementSensorType;
-use crate::modbus::commands::ModbusGenericValueOperationAdd;
 
 #[derive(Clone, Debug, AtatEnum, PartialEq)]
 pub enum UartParity {
