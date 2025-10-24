@@ -3,6 +3,7 @@ use super::types::*;
 use crate::{NoResponse, TrueFalseResponse, U16Response, U32Response, U8Response};
 use atat_derive::AtatCmd;
 use serde_at::serde::Deserialize;
+use crate::config::types::MeasurementSensorType;
 
 #[derive(Debug, Clone, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+MODBUS_UART", UartSetupResponse)]
@@ -123,6 +124,7 @@ pub struct ModbusGenericRemove {
 #[at_cmd("+MODBUS_GENERIC_VALUE_ADD", U8Response, timeout_ms = 4000)]
 pub struct ModbusGenericValueAdd {
     pub id: u8,
+    pub sensor_type: MeasurementSensorType
 }
 
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
