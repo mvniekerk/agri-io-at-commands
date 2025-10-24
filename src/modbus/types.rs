@@ -1,4 +1,5 @@
 use atat_derive::AtatEnum;
+use postcard::experimental::max_size::MaxSize;
 
 #[derive(Clone, Debug, AtatEnum, PartialEq)]
 pub enum UartParity {
@@ -83,7 +84,7 @@ impl From<&Operation> for u8 {
     }
 }
 
-#[derive(Clone, Debug, AtatEnum, PartialEq, Copy, Eq)]
+#[derive(Clone, Debug, AtatEnum, PartialEq, Copy, Eq, MaxSize)]
 pub enum GenericDeviceType {
     #[at_arg(value = 0)]
     Generic,
