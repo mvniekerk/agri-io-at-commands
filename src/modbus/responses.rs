@@ -2,6 +2,7 @@ use crate::modbus::types::{GenericDeviceType, Operation, UartDataBits, UartParit
 use crate::NumberResponse;
 use atat_derive::{AtatLen, AtatResp};
 use serde::Serialize;
+use crate::config::types::MeasurementSensorType;
 use crate::modbus::commands::ModbusGenericValueOperationAdd;
 
 
@@ -25,6 +26,14 @@ pub struct UartSetupResponse {
 }
 
 impl NumberResponse for UartSetupResponse {}
+
+#[derive(Debug, Clone, AtatResp, PartialEq, AtatLen, Serialize)]
+pub struct ModbusGenericValueGetResponse {
+    pub id: u8,
+    pub sensor_type: MeasurementSensorType
+}
+
+impl NumberResponse for ModbusGenericValueGetResponse {}
 
 #[derive(Debug, Clone, AtatResp, PartialEq, AtatLen, Serialize)]
 pub struct ModbusGenericValueOperationResponse {

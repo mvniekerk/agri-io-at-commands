@@ -35,7 +35,7 @@ pub enum MeasurementConfigType {
 }
 
 #[derive(Clone, Debug, AtatEnum, PartialEq, MaxSize, Copy, Eq)]
-#[repr(u8)]
+// #[repr(u8)]
 pub enum MeasurementSensorType {
     #[at_arg(value = 0)]
     Current,

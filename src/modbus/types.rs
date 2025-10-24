@@ -1,5 +1,9 @@
 use atat_derive::AtatEnum;
 use postcard::experimental::max_size::MaxSize;
+#[cfg(feature = "std")]
+use crate::config::types::MeasurementSensorType;
+#[cfg(feature = "std")]
+use crate::modbus::commands::ModbusGenericValueOperationAdd;
 
 #[derive(Clone, Debug, AtatEnum, PartialEq)]
 pub enum UartParity {
@@ -122,7 +126,7 @@ impl GenericDeviceType {
                     (
                         MeasurementSensorType::FlowRate,
                         alloc::vec![
-                            ModbusGenericValueOperationAdd {
+                            ModbusGenericValueOperationAdd{
                                 id: index,
                                 value_id: 0,
                                 register_or_value: 0,
