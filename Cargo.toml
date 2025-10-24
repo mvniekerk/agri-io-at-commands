@@ -1,19 +1,19 @@
 [package]
 name = "agri-io-at-commands"
-version = "0.2.53"
+version = "0.2.54"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 
-atat = { git = "https://github.com/mvniekerk/atat.git", tag = "v20.6",  default-features=false, features = ["derive", "bytes", "hex_str_arrays", "async"] }
-atat_derive = { git = "https://github.com/mvniekerk/atat.git", tag = "v20.6" }
-serde_at = { git = "https://github.com/mvniekerk/atat.git", tag = "v20.6", default-features=false, features = ["hex_str_arrays"] }
+atat = { git = "https://github.com/mvniekerk/atat.git", tag = "v20.7",  default-features=false, features = ["derive", "bytes", "hex_str_arrays", "async"] }
+atat_derive = { git = "https://github.com/mvniekerk/atat.git", tag = "v20.7" }
+serde_at = { git = "https://github.com/mvniekerk/atat.git", tag = "v20.7", default-features=false, features = ["hex_str_arrays"] }
 
 defmt = { version = "1", optional = true }
 
-embedded-io = { version = "0.7", optional=true }
+embedded-io = { version = "0.6.1", optional=true }
 #embedded-io-async = { version = "0.6.1", optional=true, features = ["defmt-03"] }
 serde = { version = "1", default-features=false, features = ["derive"] }
 
