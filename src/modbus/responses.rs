@@ -6,12 +6,12 @@ use crate::modbus::commands::ModbusGenericValueOperationAdd;
 
 
 #[derive(Debug, Clone, AtatResp, PartialEq, AtatLen, Serialize)]
-pub struct ModbusGenericDevice {
+pub struct ModbusGenericDeviceResponse {
     pub unit_id: u8,
     pub device_type: GenericDeviceType,
 }
 
-impl NumberResponse for ModbusGenericDevice {}
+impl NumberResponse for ModbusGenericDeviceResponse {}
 
 #[derive(Debug, Clone, AtatResp, PartialEq, AtatLen, Serialize)]
 pub struct UartSetupResponse {

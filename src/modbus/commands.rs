@@ -100,7 +100,7 @@ pub struct ModbusGenericAdd {
 }
 
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
-#[at_cmd("+MODBUS_GENERIC_DEVICE_GET", ModbusGenericDevice, timeout = 4000)]
+#[at_cmd("+MODBUS_GENERIC_DEVICE_GET", ModbusGenericDeviceResponse, timeout = 4000)]
 pub struct ModbusGenericGet {
     pub id: u8,
 }
