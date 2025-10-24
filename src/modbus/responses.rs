@@ -7,6 +7,7 @@ use crate::modbus::commands::ModbusGenericValueOperationAdd;
 
 #[derive(Debug, Clone, AtatResp, PartialEq, AtatLen, Serialize)]
 pub struct ModbusGenericDeviceResponse {
+    pub id: u8,
     pub unit_id: u8,
     pub device_type: GenericDeviceType,
 }
