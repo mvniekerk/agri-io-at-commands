@@ -96,13 +96,21 @@ pub struct ModbusGenericCount {}
 #[at_cmd("+MODBUS_GENERIC_DEVICE_ADD", U8Response, timeout_ms = 4000)]
 pub struct ModbusGenericAdd {
     pub unit_id: u8,
+    pub device_type: GenericDeviceType,
 }
 
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
-#[at_cmd("+MODBUS_GENERIC_DEVICE_SET_UNIT_ID", U8Response, timeout_ms = 4000)]
-pub struct ModbusGenericSetUnitId {
+#[at_cmd("+MODBUS_GENERIC_DEVICE_GET", ModbusGenericDevice, timeout = 4000)]
+pub struct ModbusGenericGet {
+    pub id: u8,
+}
+
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+MODBUS_GENERIC_DEVICE_UPDATE", U8Response, timeout_ms = 4000)]
+pub struct ModbusGenericUpdate {
     pub id: u8,
     pub unit_id: u8,
+    pub device_type: GenericDeviceType,
 }
 
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]

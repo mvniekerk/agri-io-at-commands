@@ -1,8 +1,17 @@
-use crate::modbus::types::{Operation, UartDataBits, UartParity, UartStopBits};
+use crate::modbus::types::{GenericDeviceType, Operation, UartDataBits, UartParity, UartStopBits};
 use crate::NumberResponse;
 use atat_derive::{AtatLen, AtatResp};
 use serde::Serialize;
 use crate::modbus::commands::ModbusGenericValueOperationAdd;
+
+
+#[derive(Debug, Clone, AtatResp, PartialEq, AtatLen, Serialize)]
+pub struct ModbusGenericDevice {
+    pub unit_id: u8,
+    pub device_type: GenericDeviceType,
+}
+
+impl NumberResponse for ModbusGenericDevice {}
 
 #[derive(Debug, Clone, AtatResp, PartialEq, AtatLen, Serialize)]
 pub struct UartSetupResponse {
@@ -36,7 +45,7 @@ impl NumberResponse for ModbusGenericValueOperationResponse {}
 impl From<&ModbusGenericValueOperationResponse> for ModbusGenericValueOperationAdd {
     fn from(value: &ModbusGenericValueOperationResponse) -> Self {
         let ModbusGenericValueOperationResponse { id, value_id, register_or_value, is_register, left_shift, right_shift, divided_by, multiplied_by, mask, operation, is_coil } = value;
-        
+
         ModbusGenericValueOperationAdd {
             id: *id,
             value_id: *value_id,

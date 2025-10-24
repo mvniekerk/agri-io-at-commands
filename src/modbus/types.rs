@@ -82,3 +82,20 @@ impl From<&Operation> for u8 {
         }
     }
 }
+
+#[derive(Clone, Debug, AtatEnum, PartialEq, Copy)]
+pub enum GenericDeviceType {
+    #[at_arg(value = 0)]
+    Generic,
+    #[at_arg(value = 1)]
+    MacSensorLd300
+}
+
+impl From<&GenericDeviceType> for u8 {
+    fn from(device_type: &GenericDeviceType) -> Self {
+        match device_type {
+            GenericDeviceType::Generic => 0,
+            GenericDeviceType::MacSensorLd300 => 1
+        }
+    }
+}
