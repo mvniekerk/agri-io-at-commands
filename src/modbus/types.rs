@@ -83,7 +83,7 @@ impl From<&Operation> for u8 {
     }
 }
 
-#[derive(Clone, Debug, AtatEnum, PartialEq, Copy)]
+#[derive(Clone, Debug, AtatEnum, PartialEq, Copy, Eq)]
 pub enum GenericDeviceType {
     #[at_arg(value = 0)]
     Generic,
