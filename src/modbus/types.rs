@@ -1,5 +1,7 @@
 use atat_derive::AtatEnum;
 use postcard::experimental::max_size::MaxSize;
+use crate::config::types::MeasurementSensorType;
+use crate::modbus::commands::ModbusGenericValueOperationAdd;
 
 #[derive(Clone, Debug, AtatEnum, PartialEq)]
 pub enum UartParity {
@@ -97,6 +99,110 @@ impl From<&GenericDeviceType> for u8 {
         match device_type {
             GenericDeviceType::Generic => 0,
             GenericDeviceType::MacSensorLd300 => 1
+        }
+    }
+}
+
+#[cfg(feature = "std")]
+#[derive(Clone)]
+pub struct ModbusGenericDevice {
+    pub operations: alloc::vec::Vec<(MeasurementSensorType, alloc::vec::Vec<ModbusGenericValueOperationAdd>)>
+}
+
+#[cfg(feature = "std")]
+impl GenericDeviceType {
+    pub fn new_from_type(&self, index: u8) -> ModbusGenericDevice {
+        match self {
+            GenericDeviceType::Generic => {
+                ModbusGenericDevice {
+                    operations: alloc::vec![]
+                }
+            }
+            GenericDeviceType::MacSensorLd300 => {
+                let operations = alloc::vec![
+                    // Instantaneous flow rate
+                    (
+                        MeasurementSensorType::FlowRate,
+                        alloc::vec![
+                            ModbusGenericValueOperationAdd {
+                                id: index,
+                                value_id: 0,
+                                register_or_value: 0,
+                                is_register: true,
+                                left_shift: 0x16,
+                                right_shift: 0xFF,
+                                divided_by: 0xFF,
+                                multiplied_by: 0xFF,
+                                mask: 0xFFFF,
+                                operation: Operation::ADD,
+                                is_coil: false,
+                            },
+                            ModbusGenericValueOperationAdd {
+                                id: index,
+                                value_id: 0,
+                                register_or_value: 1,
+                                is_register: true,
+                                left_shift: 0xFF,
+                                right_shift: 0xFF,
+                                divided_by: 0xFF,
+                                multiplied_by: 0xFF,
+                                mask: 0xFFFF,
+                                operation: Operation::ADD,
+                                is_coil: false,
+                            },
+                        ]
+                    ),
+                    // Cumulative flow rate
+                    (
+                        MeasurementSensorType::FlowRate,
+                        alloc::vec![
+                            ModbusGenericValueOperationAdd {
+                                id: index,
+                                value_id: 0,
+                                register_or_value: 5,
+                                is_register: true,
+                                left_shift: 0x16,
+                                right_shift: 0xFF,
+                                divided_by: 0xFF,
+                                multiplied_by: 0xFF,
+                                mask: 0xFFFF,
+                                operation: Operation::ADD,
+                                is_coil: false,
+                            },
+                            ModbusGenericValueOperationAdd {
+                                id: index,
+                                value_id: 0,
+                                register_or_value: 6,
+                                is_register: true,
+                                left_shift: 0xFF,
+                                right_shift: 0xFF,
+                                divided_by: 0xFF,
+                                multiplied_by: 0xFF,
+                                mask: 0xFFFF,
+                                operation: Operation::ADD,
+                                is_coil: false,
+                            },
+                            ModbusGenericValueOperationAdd {
+                                id: index,
+                                value_id: 0,
+                                register_or_value: 7,
+                                is_register: true,
+                                left_shift: 0xFF,
+                                right_shift: 0xFF,
+                                divided_by: 1000,
+                                multiplied_by: 0xFF,
+                                mask: 0xFFFF,
+                                operation: Operation::ADD,
+                                is_coil: false,
+                            },
+                        ]
+                    )
+                ];
+
+                ModbusGenericDevice {
+                    operations
+                }
+            }
         }
     }
 }

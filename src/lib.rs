@@ -1,5 +1,7 @@
-#![no_std]
+#![cfg_attr(not(test), no_std)]
 #![feature(generic_const_exprs)]
+#[cfg(feature = "std")]
+extern crate alloc;
 
 use atat::AtatLen;
 use atat_derive::{AtatEnum, AtatLen, AtatResp};
