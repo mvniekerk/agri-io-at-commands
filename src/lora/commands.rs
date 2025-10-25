@@ -127,3 +127,7 @@ pub struct LoraRebootAfterTriesSet {
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+LORA_START", NoResponse)]
 pub struct LoraStart {}
+
+#[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
+#[at_cmd("+LORA_FIRMWARE_VERSION", LoraFirmwareVersionResponse)]
+pub struct LoraFirmwareVersion {}

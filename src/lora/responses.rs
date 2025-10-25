@@ -43,6 +43,13 @@ pub struct LoraPowerTable {
     pub table: Vec<u8, 12>,
 }
 
+#[derive(Debug, Clone, AtatResp, PartialEq, Serialize, AtatLen)]
+pub struct LoraFirmwareVersionResponse {
+    pub major: u8,
+    pub minor: u8,
+    pub patch: u8,
+}
+
 impl NumberResponse for AppKeyGetResponse {}
 impl NumberResponse for DevEuiGetResponse {}
 impl NumberResponse for AdrGetResponse {}
