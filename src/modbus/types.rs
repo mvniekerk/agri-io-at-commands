@@ -1,9 +1,9 @@
-use atat_derive::AtatEnum;
-use postcard::experimental::max_size::MaxSize;
 #[cfg(feature = "std")]
 use crate::config::types::MeasurementSensorType;
 #[cfg(feature = "std")]
 use crate::modbus::commands::ModbusGenericValueOperationAdd;
+use atat_derive::AtatEnum;
+use postcard::experimental::max_size::MaxSize;
 
 #[derive(Clone, Debug, AtatEnum, PartialEq)]
 pub enum UartParity {
@@ -93,14 +93,14 @@ pub enum GenericDeviceType {
     #[at_arg(value = 0)]
     Generic,
     #[at_arg(value = 1)]
-    MacSensorLd300
+    MacSensorLd300,
 }
 
 impl From<&GenericDeviceType> for u8 {
     fn from(device_type: &GenericDeviceType) -> Self {
         match device_type {
             GenericDeviceType::Generic => 0,
-            GenericDeviceType::MacSensorLd300 => 1
+            GenericDeviceType::MacSensorLd300 => 1,
         }
     }
 }
@@ -108,25 +108,26 @@ impl From<&GenericDeviceType> for u8 {
 #[cfg(feature = "std")]
 #[derive(Clone)]
 pub struct ModbusGenericDevice {
-    pub operations: alloc::vec::Vec<(MeasurementSensorType, alloc::vec::Vec<ModbusGenericValueOperationAdd>)>
+    pub operations: alloc::vec::Vec<(
+        MeasurementSensorType,
+        alloc::vec::Vec<ModbusGenericValueOperationAdd>,
+    )>,
 }
 
 #[cfg(feature = "std")]
 impl GenericDeviceType {
     pub fn new_from_type(&self, index: u8) -> ModbusGenericDevice {
         match self {
-            GenericDeviceType::Generic => {
-                ModbusGenericDevice {
-                    operations: alloc::vec![]
-                }
-            }
+            GenericDeviceType::Generic => ModbusGenericDevice {
+                operations: alloc::vec![],
+            },
             GenericDeviceType::MacSensorLd300 => {
                 let operations = alloc::vec![
                     // Instantaneous flow rate
                     (
                         MeasurementSensorType::FlowRate,
                         alloc::vec![
-                            ModbusGenericValueOperationAdd{
+                            ModbusGenericValueOperationAdd {
                                 id: index,
                                 value_id: 0,
                                 register_or_value: 0,
@@ -201,9 +202,7 @@ impl GenericDeviceType {
                     )
                 ];
 
-                ModbusGenericDevice {
-                    operations
-                }
+                ModbusGenericDevice { operations }
             }
         }
     }

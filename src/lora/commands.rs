@@ -1,6 +1,7 @@
 use super::responses::*;
 use crate::{NoResponse, TrueFalseResponse, U16Response};
 use atat_derive::AtatCmd;
+use heapless::String;
 use serde_at::serde::Deserialize;
 use serde_at::HexStr;
 
@@ -131,3 +132,7 @@ pub struct LoraStart {}
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
 #[at_cmd("+LORA_FIRMWARE_VERSION", LoraFirmwareVersionResponse)]
 pub struct LoraFirmwareVersion {}
+
+#[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
+#[at_cmd("+LORA_DEBUG_CMDS", NoResponse)]
+pub struct LoraDebugCmds {}

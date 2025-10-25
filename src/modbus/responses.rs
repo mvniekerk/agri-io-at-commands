@@ -1,10 +1,9 @@
+use crate::config::types::MeasurementSensorType;
+use crate::modbus::commands::ModbusGenericValueOperationAdd;
 use crate::modbus::types::{GenericDeviceType, Operation, UartDataBits, UartParity, UartStopBits};
 use crate::NumberResponse;
 use atat_derive::{AtatLen, AtatResp};
 use serde::Serialize;
-use crate::config::types::MeasurementSensorType;
-use crate::modbus::commands::ModbusGenericValueOperationAdd;
-
 
 #[derive(Debug, Clone, AtatResp, PartialEq, AtatLen, Serialize)]
 pub struct ModbusGenericDeviceResponse {
@@ -30,7 +29,7 @@ impl NumberResponse for UartSetupResponse {}
 #[derive(Debug, Clone, AtatResp, PartialEq, AtatLen, Serialize)]
 pub struct ModbusGenericValueGetResponse {
     pub id: u8,
-    pub sensor_type: MeasurementSensorType
+    pub sensor_type: MeasurementSensorType,
 }
 
 impl NumberResponse for ModbusGenericValueGetResponse {}
@@ -54,7 +53,19 @@ impl NumberResponse for ModbusGenericValueOperationResponse {}
 
 impl From<&ModbusGenericValueOperationResponse> for ModbusGenericValueOperationAdd {
     fn from(value: &ModbusGenericValueOperationResponse) -> Self {
-        let ModbusGenericValueOperationResponse { id, value_id, register_or_value, is_register, left_shift, right_shift, divided_by, multiplied_by, mask, operation, is_coil } = value;
+        let ModbusGenericValueOperationResponse {
+            id,
+            value_id,
+            register_or_value,
+            is_register,
+            left_shift,
+            right_shift,
+            divided_by,
+            multiplied_by,
+            mask,
+            operation,
+            is_coil,
+        } = value;
 
         ModbusGenericValueOperationAdd {
             id: *id,

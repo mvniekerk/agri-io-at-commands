@@ -1,12 +1,12 @@
-use crate::{NumberResponse};
+use crate::NumberResponse;
 use atat_derive::{AtatLen, AtatResp};
+use core::fmt::Write;
+use core::str::FromStr;
 #[cfg(feature = "debug")]
 use defmt::error;
 use heapless::String;
 use serde::Serialize;
 use serde_at::HexStr;
-use core::fmt::Write;
-use core::str::FromStr;
 
 #[derive(Debug, Clone, AtatResp, PartialEq, Serialize, AtatLen)]
 pub struct U8Response {
@@ -81,9 +81,7 @@ fn f32_to_string(f: f32) -> String<50> {
 impl From<f32> for F32Response {
     fn from(value: f32) -> Self {
         let value = f32_to_string(value);
-        Self {
-            value
-        }
+        Self { value }
     }
 }
 
