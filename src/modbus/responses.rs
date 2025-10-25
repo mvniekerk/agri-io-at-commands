@@ -31,6 +31,7 @@ pub struct ModbusGenericValueGetResponse {
     pub id: u8,
     pub value_id: u8,
     pub sensor_type: MeasurementSensorType,
+    pub operations_count: u8
 }
 
 impl NumberResponse for ModbusGenericValueGetResponse {}
