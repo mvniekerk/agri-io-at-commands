@@ -135,11 +135,11 @@ pub struct LoraStart {}
 pub struct LoraFirmwareVersion {}
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
-#[at_cmd("+LORA_DEBUG_CMDS", NoResponse)]
+#[at_cmd("+LORA_DEBUG_CMDS", U8Response)]
 pub struct LoraDebugCmds {
     pub enabled: bool
 }
 
 #[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
-#[at_cmd("+LORA_DEBUG_CMDS=?", BoolResponse)]
+#[at_cmd("+LORA_DEBUG_CMDS=?", U8Response)]
 pub struct LoraDebugCmdsGet {}
