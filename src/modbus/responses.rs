@@ -29,6 +29,7 @@ impl NumberResponse for UartSetupResponse {}
 #[derive(Debug, Clone, AtatResp, PartialEq, AtatLen, Serialize)]
 pub struct ModbusGenericValueGetResponse {
     pub id: u8,
+    pub value_id: u8,
     pub sensor_type: MeasurementSensorType,
 }
 
