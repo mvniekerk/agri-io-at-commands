@@ -1,5 +1,6 @@
 use super::responses::*;
 use crate::{NoResponse, TrueFalseResponse, U16Response};
+use crate::shared_responses::BoolResponse;
 use atat_derive::AtatCmd;
 use heapless::String;
 use serde_at::serde::Deserialize;
@@ -138,3 +139,7 @@ pub struct LoraFirmwareVersion {}
 pub struct LoraDebugCmds {
     pub enabled: bool
 }
+
+#[derive(Clone, Debug, AtatCmd, Deserialize, PartialEq)]
+#[at_cmd("+LORA_DEBUG_CMDS=?", BoolResponse)]
+pub struct LoraDebugCmdsGet {}
