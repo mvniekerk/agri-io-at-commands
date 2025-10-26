@@ -65,7 +65,7 @@ impl From<&UartDataBits> for u8 {
     }
 }
 
-#[derive(Clone, Debug, AtatEnum, PartialEq, Copy)]
+#[derive(Clone, Debug, AtatEnum, PartialEq, Copy, Hash)]
 pub enum Operation {
     #[at_arg(value = 0)]
     SUBTRACT,
