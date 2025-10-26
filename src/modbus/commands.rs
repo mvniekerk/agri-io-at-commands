@@ -227,3 +227,11 @@ pub struct ModbusGenericValueRemoveAsSensor {
     pub id: u8,
     pub value_id: u8,
 }
+
+#[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
+#[at_cmd("+MODBUS_GENERIC_VALUE_ADD_AS_SENSOR", U8Response, timeout_ms = 4000)]
+pub struct ModbusGenericValueAddAsSensor {
+    pub id: u8,
+    pub value_id: u8,
+    pub sensor_type: MeasurementSensorType,
+}
