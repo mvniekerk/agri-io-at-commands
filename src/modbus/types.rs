@@ -75,6 +75,8 @@ pub enum Operation {
     MULTIPLY,
     #[at_arg(value = 3)]
     DIVIDE,
+    #[at_arg(value = 4)]
+    VALIDATE,
 }
 
 impl From<&Operation> for u8 {
@@ -84,6 +86,7 @@ impl From<&Operation> for u8 {
             Operation::ADD => 1,
             Operation::MULTIPLY => 2,
             Operation::DIVIDE => 3,
+            Operation::VALIDATE => 4,
         }
     }
 }
@@ -139,6 +142,10 @@ impl GenericDeviceType {
                                 mask: 0xFFFF,
                                 operation: Operation::ADD,
                                 is_coil: false,
+                                retry_count: 12,
+                                ms_per_retry: 50,
+                                lower_limit: 0,
+                                upper_limit: 0xFFF0
                             },
                             ModbusGenericValueOperationAdd {
                                 id: index,
@@ -152,6 +159,10 @@ impl GenericDeviceType {
                                 mask: 0xFFFF,
                                 operation: Operation::ADD,
                                 is_coil: false,
+                                retry_count: 12,
+                                ms_per_retry: 50,
+                                lower_limit: 0,
+                                upper_limit: 0xFFFE
                             },
                         ]
                     ),
@@ -171,6 +182,10 @@ impl GenericDeviceType {
                                 mask: 0xFFFF,
                                 operation: Operation::ADD,
                                 is_coil: false,
+                                retry_count: 12,
+                                ms_per_retry: 50,
+                                lower_limit: 0,
+                                upper_limit: 0,
                             },
                             ModbusGenericValueOperationAdd {
                                 id: index,
@@ -184,6 +199,10 @@ impl GenericDeviceType {
                                 mask: 0xFFFF,
                                 operation: Operation::ADD,
                                 is_coil: false,
+                                retry_count: 12,
+                                ms_per_retry: 50,
+                                lower_limit: 0,
+                                upper_limit: 0
                             },
                             ModbusGenericValueOperationAdd {
                                 id: index,
@@ -197,6 +216,10 @@ impl GenericDeviceType {
                                 mask: 0xFFFF,
                                 operation: Operation::ADD,
                                 is_coil: false,
+                                retry_count: 12,
+                                ms_per_retry: 50,
+                                lower_limit: 0,
+                                upper_limit: 0
                             },
                         ]
                     )

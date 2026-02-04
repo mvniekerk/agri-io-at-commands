@@ -26,3 +26,11 @@ pub struct SequenceState {
 }
 
 impl NumberResponse for SequenceState {}
+
+#[derive(Debug, Clone, AtatResp, PartialEq, AtatLen, Serialize)]
+pub struct SequenceAtBootGet {
+    pub enabled: bool,
+    pub sequence_index: u8,
+}
+
+impl NumberResponse for SequenceAtBootGet {}

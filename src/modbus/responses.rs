@@ -31,7 +31,7 @@ pub struct ModbusGenericValueGetResponse {
     pub id: u8,
     pub value_id: u8,
     pub sensor_type: MeasurementSensorType,
-    pub operations_count: u8
+    pub operations_count: u8,
 }
 
 impl NumberResponse for ModbusGenericValueGetResponse {}
@@ -49,6 +49,10 @@ pub struct ModbusGenericValueOperationResponse {
     pub mask: u16,
     pub operation: Operation,
     pub is_coil: bool,
+    pub retry_count: u8,
+    pub ms_per_retry: u16,
+    pub upper_limit: u16,
+    pub lower_limit: u16,
 }
 
 impl NumberResponse for ModbusGenericValueOperationResponse {}
@@ -67,6 +71,10 @@ impl From<&ModbusGenericValueOperationResponse> for ModbusGenericValueOperationA
             mask,
             operation,
             is_coil,
+            retry_count,
+            ms_per_retry,
+            upper_limit,
+            lower_limit,
         } = value;
 
         ModbusGenericValueOperationAdd {
@@ -81,6 +89,10 @@ impl From<&ModbusGenericValueOperationResponse> for ModbusGenericValueOperationA
             mask: *mask,
             operation: *operation,
             is_coil: *is_coil,
+            retry_count: *retry_count,
+            ms_per_retry: *ms_per_retry,
+            upper_limit: *upper_limit,
+            lower_limit: *lower_limit,
         }
     }
 }

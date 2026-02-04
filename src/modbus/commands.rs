@@ -132,7 +132,11 @@ pub struct ModbusGenericValueAdd {
 }
 
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
-#[at_cmd("+MODBUS_GENERIC_VALUE_UPDATE", ModbusGenericValueGetResponse, timeout_ms = 4000)]
+#[at_cmd(
+    "+MODBUS_GENERIC_VALUE_UPDATE",
+    ModbusGenericValueGetResponse,
+    timeout_ms = 4000
+)]
 pub struct ModbusGenericValueUpdate {
     pub id: u8,
     pub value_id: u8,
@@ -177,6 +181,10 @@ pub struct ModbusGenericValueOperationAdd {
     pub mask: u16,
     pub operation: Operation,
     pub is_coil: bool,
+    pub retry_count: u8,
+    pub ms_per_retry: u16,
+    pub upper_limit: u16,
+    pub lower_limit: u16,
 }
 
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
@@ -222,7 +230,11 @@ pub struct ModbusGenericValueOperationCount {
 }
 
 #[derive(Clone, Debug, AtatCmd, PartialEq, Deserialize)]
-#[at_cmd("+MODBUS_GENERIC_VALUE_REMOVE_AS_SENSOR", U8Response, timeout_ms = 4000)]
+#[at_cmd(
+    "+MODBUS_GENERIC_VALUE_REMOVE_AS_SENSOR",
+    U8Response,
+    timeout_ms = 4000
+)]
 pub struct ModbusGenericValueRemoveAsSensor {
     pub id: u8,
     pub value_id: u8,

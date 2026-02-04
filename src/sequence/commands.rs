@@ -1,4 +1,6 @@
-use crate::sequence::responses::{SequenceState, SequencesState};
+use crate::sequence::responses::{
+    SequenceAtBootGet as SequenceAtBootGetResponse, SequenceState, SequencesState,
+};
 use crate::sequence::types::ActionType;
 use crate::{NoResponse, TrueFalseResponse, U16Response};
 use atat_derive::AtatCmd;
@@ -91,4 +93,15 @@ pub struct SequencePausedGet {}
 #[at_cmd("+SEQ_PAUSED", TrueFalseResponse)]
 pub struct SequencePausedSet {
     pub paused: bool,
+}
+
+#[derive(Debug, Clone, AtatCmd, Deserialize, PartialEq)]
+#[at_cmd("+SEQ_AT_BOOT=?", SequenceAtBootGetResponse)]
+pub struct SequenceAtBootGet {}
+
+#[derive(Debug, Clone, AtatCmd, Deserialize, PartialEq)]
+#[at_cmd("+SEQ_AT_BOOT", NoResponse)]
+pub struct SequenceAtBootSet {
+    pub enabled: bool,
+    pub sequence_index: u8,
 }
