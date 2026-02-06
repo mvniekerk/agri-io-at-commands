@@ -114,6 +114,8 @@ impl AdcValueGetResponse {
     }
 }
 
+impl NumberResponse for AdcValueGetResponse {}
+
 #[cfg(test)]
 mod tests {
     use super::*;
