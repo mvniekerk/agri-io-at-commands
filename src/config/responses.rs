@@ -3,6 +3,7 @@ use crate::general::types::PinOnOff;
 use crate::NumberResponse;
 use atat::heapless::String;
 use atat_derive::{AtatLen, AtatResp};
+use heapless::Vec;
 use serde::Serialize;
 use serde_at::HexStr;
 use crate::shared_responses::f32_to_string;
@@ -78,21 +79,40 @@ pub struct ConfigGetResponse {
 
 #[derive(Debug, Clone, PartialEq, Serialize, AtatResp, AtatLen)]
 pub struct MeasurementValueGetResponse {
-    pub value: String<50>,
     pub index: u8,
+    pub sensor_type: MeasurementSensorType,
+    pub value: String<50>,
 }
 
 impl MeasurementValueGetResponse {
-    pub fn new(value: f32, index: u8) -> Self {
+    pub fn new(index: u8, sensor_type: MeasurementSensorType, value: f32) -> Self {
         let value = f32_to_string(value);
         Self {
             value,
-            index
+            index,
+            sensor_type
         }
     }
 }
 
 impl NumberResponse for MeasurementValueGetResponse {}
+
+#[derive(Debug, Clone, PartialEq, Serialize, AtatResp, AtatLen)]
+pub struct AdcValueGetResponse {
+    pub index: u8,
+    pub sensor_type: MeasurementSensorType,
+    pub values: Vec<u16, 8>,
+}
+
+impl AdcValueGetResponse {
+    pub fn new(index: u8, sensor_type: MeasurementSensorType, values: Vec<u16, 8>) -> Self {
+        Self {
+            index,
+            sensor_type,
+            values
+        }
+    }
+}
 
 #[cfg(test)]
 mod tests {
