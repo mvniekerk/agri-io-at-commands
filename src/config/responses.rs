@@ -101,15 +101,15 @@ impl NumberResponse for MeasurementValueGetResponse {}
 pub struct AdcValueGetResponse {
     pub index: u8,
     pub sensor_type: MeasurementSensorType,
-    pub values: Vec<u16, 8>,
+    pub value: u16,
 }
 
 impl AdcValueGetResponse {
-    pub fn new(index: u8, sensor_type: MeasurementSensorType, values: Vec<u16, 8>) -> Self {
+    pub fn new(index: u8, sensor_type: MeasurementSensorType, value: u16) -> Self {
         Self {
             index,
             sensor_type,
-            values
+            value
         }
     }
 }
