@@ -1,3 +1,4 @@
+use core::str::FromStr;
 use crate::config::types::MeasurementSensorType;
 use crate::modbus::commands::ModbusGenericValueOperationAdd;
 use crate::modbus::types::{GenericDeviceType, Operation, UartDataBits, UartParity, UartStopBits};

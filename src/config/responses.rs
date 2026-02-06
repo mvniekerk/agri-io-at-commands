@@ -5,6 +5,7 @@ use atat::heapless::String;
 use atat_derive::{AtatLen, AtatResp};
 use serde::Serialize;
 use serde_at::HexStr;
+use crate::shared_responses::f32_to_string;
 
 #[derive(Debug, Clone, AtatResp, PartialEq, AtatLen, Serialize)]
 pub struct MeasurementConfigGetResponse {
@@ -73,6 +74,25 @@ impl NumberResponse for NameGetResponse {}
 pub struct ConfigGetResponse {
     pub config: String<8192>,
 }
+
+
+#[derive(Debug, Clone, PartialEq, Serialize, AtatResp, AtatLen)]
+pub struct MeasurementValueGetResponse {
+    pub value: String<50>,
+    pub index: u8,
+}
+
+impl MeasurementValueGetResponse {
+    pub fn new(value: f32, index: u8) -> Self {
+        let value = f32_to_string(value);
+        Self {
+            value,
+            index
+        }
+    }
+}
+
+impl NumberResponse for MeasurementValueGetResponse {}
 
 #[cfg(test)]
 mod tests {

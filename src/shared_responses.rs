@@ -70,7 +70,7 @@ pub struct F32Response {
     pub value: String<50>,
 }
 
-fn f32_to_string(f: f32) -> String<50> {
+pub fn f32_to_string(f: f32) -> String<50> {
     let mut s: String<50> = String::new();
     if write!(&mut s, "\"{}\"", f).is_err() {
         return String::from_str("\"0.0\"").unwrap_or_default();
