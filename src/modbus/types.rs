@@ -135,9 +135,9 @@ impl GenericDeviceType {
                                 value_id: 0,
                                 register_or_value: 0x10,
                                 is_register: true,
-                                left_shift: 0x16,
+                                left_shift: 0xFF,
                                 right_shift: 0xFF,
-                                divided_by: 0xFFFF,
+                                divided_by: 0x0001,
                                 multiplied_by: 0xFFFF,
                                 mask: 0xFFFF,
                                 operation: Operation::VALIDATE,
@@ -162,7 +162,7 @@ impl GenericDeviceType {
                                 retry_count: 12,
                                 ms_per_retry: 50,
                                 lower_limit: 0,
-                                upper_limit: 0xFFF0
+                                upper_limit: 0
                             },
                             ModbusGenericValueOperationAdd {
                                 id: index,
@@ -179,7 +179,7 @@ impl GenericDeviceType {
                                 retry_count: 12,
                                 ms_per_retry: 50,
                                 lower_limit: 0,
-                                upper_limit: 0xFFFE
+                                upper_limit: 0
                             },
                         ]
                     ),
@@ -192,9 +192,9 @@ impl GenericDeviceType {
                                 value_id: 0,
                                 register_or_value: 0x10,
                                 is_register: true,
-                                left_shift: 0x16,
+                                left_shift: 0xFF,
                                 right_shift: 0xFF,
-                                divided_by: 0xFFFF,
+                                divided_by: 0x0001,
                                 multiplied_by: 0xFFFF,
                                 mask: 0xFFFF,
                                 operation: Operation::VALIDATE,
