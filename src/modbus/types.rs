@@ -143,7 +143,7 @@ impl GenericDeviceType {
                                 operation: Operation::VALIDATE,
                                 is_coil: false,
                                 retry_count: 12,
-                                ms_per_retry: 50,
+                                ms_per_retry: 1000,
                                 lower_limit: 0,
                                 upper_limit: 0,
                             },
