@@ -1,6 +1,6 @@
 [package]
 name = "agri-io-at-commands"
-version = "0.2.83"
+version = "0.2.84"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

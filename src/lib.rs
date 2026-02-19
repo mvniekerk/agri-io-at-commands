@@ -125,21 +125,21 @@ pub trait ToVecBytesResponse {
 }
 
 impl ErrorResponse {
-    pub fn error(error_group: u8, error_code: u8) -> Result<Vec<u8, BUFFER_SIZE_IN_BYTES>, ()> {
+    pub fn error(error_group: u8, error_code: u8) -> Vec<u8, BUFFER_SIZE_IN_BYTES> {
         let err = Self {
             error_group,
             error_code,
         };
-        err.to_vec_bytes_response("+ERR")
+        err.to_vec_bytes_response("+ERR").unwrap_or_default()
     }
 
-    pub fn error_urc(error_group: u8, error_code: u8) -> Result<Vec<u8, BUFFER_SIZE_IN_BYTES>, ()> {
+    pub fn error_urc(error_group: u8, error_code: u8) -> Vec<u8, BUFFER_SIZE_IN_BYTES> {
         let err = Self {
             error_group,
             error_code,
         };
 
-        err.to_vec_bytes_response("+ERR_URC")
+        err.to_vec_bytes_response("+ERR_URC").unwrap_or_default()
     }
 }
 
